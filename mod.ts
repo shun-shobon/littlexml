@@ -1,21 +1,27 @@
+type XmlVersion = "1.0" | "1.1";
+
 type Element = {
   name: string;
   attributes: Record<string, string>;
-  children: Element[] | string;
+  children: Child[];
 };
 
-export function element(
+type Child = Element | string;
+
+export function h(
   name: string,
   attributes: Record<string, string>,
-  children: Element[] | string
+  children: Child | Child[]
 ): Element {
-  return { name, attributes, children };
+  return {
+    name,
+    attributes,
+    children: Array.isArray(children) ? children : [children],
+  };
 }
 
-export function render(version: string, element: Element): string {
-  return `<?xml version="${version}" encoding="UTF-8"?>${renderElement(
-    element
-  )}`;
+export function render(version: XmlVersion, element: Element): string {
+  return `${createXmlDeclaration(version)}${renderElement(element)}`;
 }
 
 export function renderElement(element: Element): string {
@@ -24,15 +30,20 @@ export function renderElement(element: Element): string {
     .join("");
 
   if (element.children.length === 0) {
-    return `<${element.name} ${attributes} />`;
+    return `<${element.name}${attributes} />`;
   }
 
-  const children =
-    typeof element.children === "string"
-      ? escapeHtml(element.children)
-      : element.children.map(renderElement).join("");
+  const children = element.children
+    .map((child) =>
+      typeof child === "string" ? escapeHtml(child) : renderElement(child)
+    )
+    .join("");
 
   return `<${element.name}${attributes}>${children}</${element.name}>`;
+}
+
+function createXmlDeclaration(version: XmlVersion): string {
+  return `<?xml version="${version}" encoding="UTF-8"?>`;
 }
 
 function escapeHtml(str: string): string {
