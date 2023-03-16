@@ -22,6 +22,7 @@ jobs:
           release-type: simple
           include-v-in-tag: false
           bump-minor-pre-major: true
+          release-as: "0.1.0"
           extra-files: |
             build_npm.ts
 
