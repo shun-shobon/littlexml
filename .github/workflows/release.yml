@@ -21,6 +21,7 @@ jobs:
         with:
           release-type: simple
           include-v-in-tag: false
+          bump-minor-pre-major: true
           extra-files: |
             build_npm.ts
 
