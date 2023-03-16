@@ -2,6 +2,8 @@ name: Test
 on:
   push:
 
+permissions: write-all
+
 jobs:
   test:
     runs-on: ubuntu-latest
