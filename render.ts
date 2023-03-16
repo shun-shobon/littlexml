@@ -2,7 +2,7 @@ import { type XmlVersion } from "./xml.ts";
 import { type Element } from "./element.ts";
 import { type IndentType } from "./util.ts";
 
-type RenderOption = {
+export type RenderOption = {
   version?: XmlVersion;
   indent?: IndentType;
 };
