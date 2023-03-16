@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/shun-shobon/littlexml/compare/0.1.0...0.1.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* Fix npm build script ([d6dbd33](https://github.com/shun-shobon/littlexml/commit/d6dbd33c5ed3a0cb031ff0fca8f5d6ebdf3dcca8))
+
 ## 0.1.0 (2023-03-16)
 
 
