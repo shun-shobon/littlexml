@@ -13,7 +13,7 @@ await build({
   package: {
     name: "@shun-shobon/littlexml",
     // x-release-please-start-version
-    version: "0.1.0",
+    version: "0.1.1",
     // x-release-please-end
     description: "A small and simple XML builder for JavaScript/TypeScript.",
     license: "MIT",
