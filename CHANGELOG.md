@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/shun-shobon/littlexml/compare/0.1.2...0.2.0) (2023-03-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* Strictify re-exporting
+
+### Features
+
+* Strictify re-exporting ([a24efee](https://github.com/shun-shobon/littlexml/commit/a24efeebce86e34a10e3776ef22ef5c4b30db1b9))
+
 ## [0.1.2](https://github.com/shun-shobon/littlexml/compare/0.1.1...0.1.2) (2023-03-16)
 
 
