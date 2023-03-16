@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/shun-shobon/littlexml/compare/0.1.1...0.1.2) (2023-03-16)
+
+
+### Bug Fixes
+
+* Fix publish ci ([d744aac](https://github.com/shun-shobon/littlexml/commit/d744aac0c35ae80554cbcb36504bc2161950d307))
+
 ## [0.1.1](https://github.com/shun-shobon/littlexml/compare/0.1.0...0.1.1) (2023-03-16)
 
 
