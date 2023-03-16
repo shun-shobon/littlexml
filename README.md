@@ -9,10 +9,52 @@ Workers. It also works on Deno, Node.js, and browsers.
 
 ## Support platforms
 
-- [x] Deno
-- [ ] Node.js
-- [ ] Browser
-- [ ] Edge
+- Deno
+- Node.js
+- Browser
+- Edge
+
+## Installation
+
+### Node.js
+
+Install package from npm.
+
+```sh
+npm install @shun-shobon/littlexml
+```
+
+You can import from the package as `@shun-shobon/littlexml`.
+
+```ts
+import { element, renderToString } from "@shun-shobon/littlexml";
+```
+
+<!-- x-release-please-start-version -->
+
+### Deno
+
+You can directly import from `deno.land/x`.
+
+```ts
+import {
+  element,
+  renderToString,
+} from "https://deno.land/x/littlexml@0.1.2/mod.ts";
+```
+
+### Browser
+
+You can directly import from `unpkg.com`.
+
+```js
+import {
+  element,
+  renderToString,
+} from "https://unpkg.com/@shun-shobon/littlexml@0.1.2";
+```
+
+<!-- x-release-please-end -->
 
 ## Example
 
@@ -33,8 +75,8 @@ const root = element("urlset")
       .child(
         element("image:image")
           .child(element("image:loc").text("https://example.com/image.png"))
-          .child(element("image:caption").text("caption")),
-      ),
+          .child(element("image:caption").text("caption"))
+      )
   );
 
 const xml = renderToString(root, { version: "1.0", indent: 2 });
