@@ -1,8 +1,10 @@
 import { type XmlVersion } from "./xml.ts";
 import { type Element } from "./element.ts";
+import { type IndentType } from "./util.ts";
 
 type RenderOption = {
-  version: XmlVersion;
+  version?: XmlVersion;
+  indent?: IndentType;
 };
 
 export function renderToString(root: Element, options?: RenderOption): string {
@@ -10,7 +12,8 @@ export function renderToString(root: Element, options?: RenderOption): string {
 
   const xmlDeclaration = createXmlDeclaration(version);
 
-  return `${xmlDeclaration}${root.stringify()}`;
+  return xmlDeclaration +
+    root.stringify(options?.indent ?? "none", 0);
 }
 
 function createXmlDeclaration(version: XmlVersion): string {
