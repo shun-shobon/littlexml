@@ -1,6 +1,6 @@
 # littlexml
 
-An small and simple XML builder for JavaScript/TypeScript.
+A small and simple XML builder for JavaScript/TypeScript.
 
 ## About
 
