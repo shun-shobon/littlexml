@@ -1,4 +1,4 @@
-import { build, emptyDir } from "./dev_deps.ts";
+import { build, emptyDir } from "https://deno.land/x/dnt@0.33.1/mod.ts";
 
 await emptyDir("./npm");
 
@@ -7,7 +7,7 @@ await build({
   outDir: "./npm",
   shims: {
     deno: {
-      test: true,
+      test: "dev",
     },
   },
   package: {

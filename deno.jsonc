@@ -3,6 +3,6 @@
     "test": "deno test",
     "test:ci": "deno test -A --coverage=coverage && deno coverage ./coverage --lcov --output=coverage.lcov",
     "fmt": "deno fmt",
-    "build": "deno run -A build_npm.ts"
+    "build": "deno run -A scripts/build_npm.ts"
   }
 }
