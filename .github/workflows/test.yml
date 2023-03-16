@@ -2,7 +2,8 @@ name: Test
 on:
   push:
 
-permissions: write-all
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -22,5 +23,6 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.lcov
           fail_ci_if_error: true
