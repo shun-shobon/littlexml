@@ -23,7 +23,7 @@ jobs:
           include-v-in-tag: false
           bump-minor-pre-major: true
           extra-files: |
-            build_npm.ts
+            scripts/build_npm.ts
 
       - if: ${{ steps.release.outputs.release_created }}
         uses: ./.github/actions/npm-publish
