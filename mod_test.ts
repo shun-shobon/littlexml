@@ -1,8 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.178.0/testing/asserts.ts";
-import { render, h } from "./mod.ts";
+import { element, renderToString } from "./mod.ts";
 
 Deno.test("render (basic)", () => {
-  const xml = render("1.0", h("root", {}, "Hello World!"));
+  const root = element("root").text("Hello World!");
+  const xml = renderToString(root, { version: "1.0" });
 
   assertEquals(
     xml,
@@ -11,7 +12,8 @@ Deno.test("render (basic)", () => {
 });
 
 Deno.test("render (attributes)", () => {
-  const xml = render("1.0", h("root", { foo: "bar" }, "Hello World!"));
+  const root = element("root").attr("foo", "bar").text("Hello World!");
+  const xml = renderToString(root, { version: "1.0" });
 
   assertEquals(
     xml,
@@ -20,16 +22,13 @@ Deno.test("render (attributes)", () => {
 });
 
 Deno.test("render (children)", () => {
-  const xml = render(
-    "1.0",
-    h("root", {}, [
-      h("child", {}, "Hello World!"),
-      h("child", {}, "Hello World!"),
-    ])
-  );
+  const root = element("root")
+    .child(element("child").text("Hello World!"))
+    .child(element("child").text("Goodbye World!"));
+  const xml = renderToString(root, { version: "1.0" });
 
   assertEquals(
     xml,
-    `<?xml version="1.0" encoding="UTF-8"?><root><child>Hello World!</child><child>Hello World!</child></root>`
+    `<?xml version="1.0" encoding="UTF-8"?><root><child>Hello World!</child><child>Goodbye World!</child></root>`
   );
 });
