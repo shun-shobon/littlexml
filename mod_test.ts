@@ -7,7 +7,7 @@ Deno.test("render (basic)", () => {
 
   assertEquals(
     xml,
-    `<?xml version="1.0" encoding="UTF-8"?><root>Hello World!</root>`
+    `<?xml version="1.0" encoding="UTF-8"?><root>Hello World!</root>`,
   );
 });
 
@@ -17,7 +17,7 @@ Deno.test("render (attributes)", () => {
 
   assertEquals(
     xml,
-    `<?xml version="1.0" encoding="UTF-8"?><root foo="bar">Hello World!</root>`
+    `<?xml version="1.0" encoding="UTF-8"?><root foo="bar">Hello World!</root>`,
   );
 });
 
@@ -29,6 +29,6 @@ Deno.test("render (children)", () => {
 
   assertEquals(
     xml,
-    `<?xml version="1.0" encoding="UTF-8"?><root><child>Hello World!</child><child>Goodbye World!</child></root>`
+    `<?xml version="1.0" encoding="UTF-8"?><root><child>Hello World!</child><child>Goodbye World!</child></root>`,
   );
 });
