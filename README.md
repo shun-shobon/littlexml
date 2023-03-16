@@ -4,8 +4,8 @@ A small and simple XML builder for JavaScript/TypeScript.
 
 ## About
 
-This library is designed to run on small JavaScript runtimes such as Cloudflare Workers.
-It also works on Deno, Node.js, and browsers.
+This library is designed to run on small JavaScript runtimes such as Cloudflare
+Workers. It also works on Deno, Node.js, and browsers.
 
 ## Support platforms
 
@@ -33,8 +33,8 @@ const root = element("urlset")
       .child(
         element("image:image")
           .child(element("image:loc").text("https://example.com/image.png"))
-          .child(element("image:caption").text("caption"))
-      )
+          .child(element("image:caption").text("caption")),
+      ),
   );
 
 const xml = renderToString(root, { version: "1.0", indent: 2 });
