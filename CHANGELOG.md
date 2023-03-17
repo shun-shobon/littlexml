@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/shun-shobon/littlexml/compare/0.2.0...0.3.0) (2023-03-17)
+
+
+### Features
+
+* **element.ts:** allow adding multiple children to an element at once ([e8a0dc3](https://github.com/shun-shobon/littlexml/commit/e8a0dc32efb4da32d97045beef842fe702425d3b))
+
+
+### Bug Fixes
+
+* **element.ts:** fix infinite recursion in attributes getter by returning private field #attributes instead of the getter function itself ([b483e75](https://github.com/shun-shobon/littlexml/commit/b483e75d172d78c0475e44ab4c964c98f228fae5))
+
 ## [0.2.0](https://github.com/shun-shobon/littlexml/compare/0.1.2...0.2.0) (2023-03-16)
 
 

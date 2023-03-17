@@ -45,7 +45,7 @@ You can directly import from `deno.land/x`.
 import {
   element,
   renderToString,
-} from "https://deno.land/x/littlexml@0.1.2/mod.ts";
+} from "https://deno.land/x/littlexml@0.3.0/mod.ts";
 ```
 
 ### Browser
@@ -56,7 +56,7 @@ You can directly import from `unpkg.com`.
 import {
   element,
   renderToString,
-} from "https://unpkg.com/@shun-shobon/littlexml@0.1.2";
+} from "https://unpkg.com/@shun-shobon/littlexml@0.3.0";
 ```
 
 <!-- x-release-please-end -->
