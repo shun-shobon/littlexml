@@ -30,14 +30,14 @@ export class Element {
     return this;
   }
 
-  child(child: Element): this {
+  child(...children: Element[]): this {
     if (typeof this.#children === "string") {
       throw new Error("Cannot add child to element with text content");
     }
     if (this.#children === undefined) {
       this.#children = [];
     }
-    this.#children.push(child);
+    this.#children.push(...children);
 
     return this;
   }
