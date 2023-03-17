@@ -2,6 +2,11 @@
 
 A small and simple XML builder for JavaScript/TypeScript.
 
+[![npm](https://img.shields.io/npm/v/@shun-shobon/littlexml?logo=npm)](https://www.npmjs.com/package/@shun-shobon/littlexml)
+[![deno](https://img.shields.io/github/v/release/shun-shobon/littlexml?label=deno&logo=deno)](https://deno.land/x/littlexml)
+[![test](https://github.com/shun-shobon/littlexml/actions/workflows/test.yml/badge.svg)](https://github.com/shun-shobon/littlexml/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/shun-shobon/littlexml/branch/master/graph/badge.svg?token=VAZxHGjjpu)](https://codecov.io/gh/shun-shobon/littlexml)
+
 ## About
 
 This library is designed to run on small JavaScript runtimes such as Cloudflare
