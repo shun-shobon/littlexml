@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/shun-shobon/littlexml/compare/0.3.0...0.4.0) (2023-03-17)
+
+
+### Features
+
+* **render.ts:** add renderToIterator function to render XML to an iterable iterator of strings ([31c6f8f](https://github.com/shun-shobon/littlexml/commit/31c6f8f501fcaaf5d525d3c6efb1371b81d0eab2))
+* **render.ts:** add renderToStream function to render an XML element to a ReadableStream ([e92bbcf](https://github.com/shun-shobon/littlexml/commit/e92bbcf2903e960b31e48d87b38830194be04649))
+
 ## [0.3.0](https://github.com/shun-shobon/littlexml/compare/0.2.0...0.3.0) (2023-03-17)
 
 
