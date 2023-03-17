@@ -14,14 +14,14 @@ export function renderToString(root: Element, options?: RenderOption): string {
   const xmlDeclaration = createXmlDeclaration(version);
 
   return xmlDeclaration +
-    stringifyElement(root, options?.indent ?? "none", 0);
+    Array.from(elementToStrings(root, options?.indent ?? "none", 0)).join("");
 }
 
 function createXmlDeclaration(version: XmlVersion): string {
   return `<?xml version="${version}" encoding="UTF-8"?>`;
 }
 
-function stringifyElement(
+export function _stringifyElement(
   element: Element,
   indentType: IndentType,
   level?: number,
@@ -43,7 +43,7 @@ function stringifyElement(
   }
 
   const children = element.children.map((child) =>
-    stringifyElement(
+    _stringifyElement(
       child,
       indentType,
       level === undefined ? undefined : level + 1,
@@ -51,4 +51,36 @@ function stringifyElement(
   ).join("");
 
   return `${indent}<${element.name}${attributes}>${children}${indent}</${element.name}>`;
+}
+
+export function* elementToStrings(
+  element: Element,
+  indentType: IndentType,
+  level: number,
+): IterableIterator<string> {
+  const indent = createIndent(indentType, level);
+
+  yield `${indent}<${element.name}`;
+
+  for (const [key, value] of element.attributes.entries()) {
+    yield ` ${key}="${escapeStr(value)}"`;
+  }
+
+  if (element.children === undefined) {
+    yield " />";
+    return;
+  }
+
+  if (typeof element.children === "string") {
+    yield ">";
+    yield escapeStr(element.children);
+    yield `</${element.name}>`;
+    return;
+  }
+
+  yield ">";
+  for (const child of element.children) {
+    yield* elementToStrings(child, indentType, level + 1);
+  }
+  yield `${indent}</${element.name}>`;
 }
