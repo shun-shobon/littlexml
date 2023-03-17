@@ -18,7 +18,7 @@ export class Element {
   }
 
   get attributes(): Map<string, string> {
-    return this.attributes;
+    return this.#attributes;
   }
 
   get children(): Content | undefined {
