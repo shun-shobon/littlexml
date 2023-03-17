@@ -3,16 +3,44 @@ import { type Element } from "./element.ts";
 import { createIndent, type IndentType } from "./util.ts";
 import { escapeStr } from "./escape.ts";
 
+/**
+ * Options for rendering.
+ */
 export type RenderOption = {
+  /**
+   * XML version. Note as if you specify `1.1`, the output won't be changed.
+   *
+   * @default "1.0"
+   */
   version?: XmlVersion;
+  /**
+   * Encoding. Note if you specify `Shift_JIS`, the output won't be Shift_JIS encoded.
+   * You need to convert the output to Shift_JIS by yourself.
+   *
+   * @default "UTF-8"
+   */
   encoding?: string;
+  /**
+   * Indent type.
+   * If you specify `none`, the output won't be indented and will be in one line.
+   * If you specify `tab`, the output will be indented with tab characters.
+   * If you specify number, the output will be indented with that number of spaces.
+   *
+   * @default "none"
+   */
   indent?: IndentType;
 };
 
+/**
+ * Render an XML element to a string.
+ */
 export function renderToString(root: Element, options?: RenderOption): string {
   return Array.from(renderToIterator(root, options)).join("");
 }
 
+/**
+ * Render an XML element to a stream of strings.
+ */
 export function renderToStream(
   root: Element,
   options?: RenderOption,
@@ -31,6 +59,9 @@ export function renderToStream(
   });
 }
 
+/**
+ * Render an XML element to an iterator of strings.
+ */
 export function* renderToIterator(
   root: Element,
   options?: RenderOption,
