@@ -1,6 +1,3 @@
-import { escapeStr } from "./escape.ts";
-import { createIndent, type IndentType } from "./util.ts";
-
 export function element(name: string) {
   return new Element(name);
 }
@@ -52,29 +49,5 @@ export class Element {
     this.#children = text;
 
     return this;
-  }
-
-  stringify(indentType: IndentType, level?: number): string {
-    const indent = createIndent(indentType, level ?? 0);
-
-    const attributes = Array.from(this.#attributes.entries())
-      .map(([key, value]) => ` ${key}="${escapeStr(value)}"`)
-      .join("");
-
-    if (this.#children === undefined) {
-      return `${indent}<${this.#name}${attributes} />`;
-    }
-
-    if (typeof this.#children === "string") {
-      return `${indent}<${this.#name}${attributes}>${
-        escapeStr(this.#children)
-      }</${this.#name}>`;
-    }
-
-    const children = this.#children.map((child) =>
-      child.stringify(indentType, level === undefined ? undefined : level + 1)
-    ).join("");
-
-    return `${indent}<${this.#name}${attributes}>${children}${indent}</${this.#name}>`;
   }
 }
