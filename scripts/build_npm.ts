@@ -10,6 +10,9 @@ await build({
       test: "dev",
     },
   },
+  compilerOptions: {
+    lib: ["dom", "esnext"],
+  },
   package: {
     name: "@shun-shobon/littlexml",
     // x-release-please-start-version
