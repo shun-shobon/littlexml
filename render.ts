@@ -5,6 +5,7 @@ import { escapeStr } from "./escape.ts";
 
 export type RenderOption = {
   version?: XmlVersion;
+  encoding?: string;
   indent?: IndentType;
 };
 
@@ -35,16 +36,18 @@ export function* renderToIterator(
   options?: RenderOption,
 ): IterableIterator<string> {
   const version = options?.version ?? "1.0";
+  const encoding = options?.encoding ?? "UTF-8";
+  const indent = options?.indent ?? "none";
 
-  const xmlDeclaration = createXmlDeclaration(version);
+  const xmlDeclaration = createXmlDeclaration(version, encoding);
 
   yield xmlDeclaration;
 
-  yield* elementToStrings(root, options?.indent ?? "none", 0);
+  yield* elementToStrings(root, indent, 0);
 }
 
-function createXmlDeclaration(version: XmlVersion): string {
-  return `<?xml version="${version}" encoding="UTF-8"?>`;
+function createXmlDeclaration(version: XmlVersion, encoding: string): string {
+  return `<?xml version="${version}" encoding="${encoding}"?>`;
 }
 
 export function* elementToStrings(
