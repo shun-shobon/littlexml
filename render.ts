@@ -42,6 +42,19 @@ export function renderToStream(
   });
 }
 
+export function* renderToIterator(
+  root: Element,
+  options?: RenderOption,
+): IterableIterator<string> {
+  const version = options?.version ?? "1.0";
+
+  const xmlDeclaration = createXmlDeclaration(version);
+
+  yield xmlDeclaration;
+
+  yield* elementToStrings(root, options?.indent ?? "none", 0);
+}
+
 function createXmlDeclaration(version: XmlVersion): string {
   return `<?xml version="${version}" encoding="UTF-8"?>`;
 }
