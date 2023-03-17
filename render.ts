@@ -17,6 +17,31 @@ export function renderToString(root: Element, options?: RenderOption): string {
     Array.from(elementToStrings(root, options?.indent ?? "none", 0)).join("");
 }
 
+export function renderToStream(
+  root: Element,
+  options?: RenderOption,
+): ReadableStream<string> {
+  const version = options?.version ?? "1.0";
+
+  const xmlDeclaration = createXmlDeclaration(version);
+
+  const iterator = elementToStrings(root, options?.indent ?? "none", 0);
+
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(xmlDeclaration);
+    },
+    pull(controller) {
+      const { done, value } = iterator.next();
+      if (done) {
+        controller.close();
+      } else {
+        controller.enqueue(value);
+      }
+    },
+  });
+}
+
 function createXmlDeclaration(version: XmlVersion): string {
   return `<?xml version="${version}" encoding="UTF-8"?>`;
 }
