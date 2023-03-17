@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/shun-shobon/littlexml/compare/0.4.0...0.4.1) (2023-03-17)
+
+
+### Bug Fixes
+
+* **scripts:** add compilerOptions.lib to build_npm.ts script for support of browser ([b1c959b](https://github.com/shun-shobon/littlexml/commit/b1c959bfead7614362a83ad0280f227d399128b2))
+
 ## [0.4.0](https://github.com/shun-shobon/littlexml/compare/0.3.0...0.4.0) (2023-03-17)
 
 
