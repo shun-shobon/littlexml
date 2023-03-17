@@ -12,6 +12,12 @@ A small and simple XML builder for JavaScript/TypeScript.
 This library is designed to run on small JavaScript runtimes such as Cloudflare
 Workers. It also works on Deno, Node.js, and browsers.
 
+## Features
+
+- Render XML as a string
+- Render XML as a iterator
+- Render XML as a stream (browser compatible Stream API)
+
 ## Support platforms
 
 - Deno
