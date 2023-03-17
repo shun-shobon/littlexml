@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/shun-shobon/littlexml/compare/0.4.1...0.5.0) (2023-03-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **element.ts:** remove getters from Element class
+
+### Features
+
+* **element.ts:** remove getters from Element class ([5667afd](https://github.com/shun-shobon/littlexml/commit/5667afd8c9e5aeb2480f3812f997a3c6d2af0dea))
+* **render.ts:** add support for encoding option ([5697fea](https://github.com/shun-shobon/littlexml/commit/5697fea6b583fc7f50ac23cf643bd92167c8062b))
+
 ## [0.4.1](https://github.com/shun-shobon/littlexml/compare/0.4.0...0.4.1) (2023-03-17)
 
 
