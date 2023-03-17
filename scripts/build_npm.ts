@@ -18,7 +18,7 @@ await build({
     // x-release-please-start-version
     version: "0.5.0",
     // x-release-please-end
-    description: "A small and simple XML builder for JavaScript/TypeScript.",
+    description: "1kB XML library for Node.js, Deno, Browser, Edge runtime.",
     license: "MIT",
     main: "./script/mod.js",
     unpkg: "./esm/mod.js",
