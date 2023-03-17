@@ -21,38 +21,6 @@ function createXmlDeclaration(version: XmlVersion): string {
   return `<?xml version="${version}" encoding="UTF-8"?>`;
 }
 
-export function _stringifyElement(
-  element: Element,
-  indentType: IndentType,
-  level?: number,
-): string {
-  const indent = createIndent(indentType, level ?? 0);
-
-  const attributes = Array.from(element.attributes.entries())
-    .map(([key, value]) => ` ${key}="${escapeStr(value)}"`)
-    .join("");
-
-  if (element.children === undefined) {
-    return `${indent}<${element.name}${attributes} />`;
-  }
-
-  if (typeof element.children === "string") {
-    return `${indent}<${element.name}${attributes}>${
-      escapeStr(element.children)
-    }</${element.name}>`;
-  }
-
-  const children = element.children.map((child) =>
-    _stringifyElement(
-      child,
-      indentType,
-      level === undefined ? undefined : level + 1,
-    )
-  ).join("");
-
-  return `${indent}<${element.name}${attributes}>${children}${indent}</${element.name}>`;
-}
-
 export function* elementToStrings(
   element: Element,
   indentType: IndentType,
@@ -83,4 +51,39 @@ export function* elementToStrings(
     yield* elementToStrings(child, indentType, level + 1);
   }
   yield `${indent}</${element.name}>`;
+}
+
+/**
+ * @deprecated This is a function that remains only for benchmarking purposes. Use `elementToStrings` instead.
+ */
+export function _stringifyElement(
+  element: Element,
+  indentType: IndentType,
+  level?: number,
+): string {
+  const indent = createIndent(indentType, level ?? 0);
+
+  const attributes = Array.from(element.attributes.entries())
+    .map(([key, value]) => ` ${key}="${escapeStr(value)}"`)
+    .join("");
+
+  if (element.children === undefined) {
+    return `${indent}<${element.name}${attributes} />`;
+  }
+
+  if (typeof element.children === "string") {
+    return `${indent}<${element.name}${attributes}>${
+      escapeStr(element.children)
+    }</${element.name}>`;
+  }
+
+  const children = element.children.map((child) =>
+    _stringifyElement(
+      child,
+      indentType,
+      level === undefined ? undefined : level + 1,
+    )
+  ).join("");
+
+  return `${indent}<${element.name}${attributes}>${children}${indent}</${element.name}>`;
 }
