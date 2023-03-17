@@ -16,18 +16,6 @@ export class Element {
     this.#name = name;
   }
 
-  get name(): string {
-    return this.#name;
-  }
-
-  get attributes(): Map<string, string> {
-    return this.#attributes;
-  }
-
-  get children(): Content | undefined {
-    return this.#children;
-  }
-
   attr(name: string, value: string): this {
     this.#attributes.set(name, value);
     return this;
