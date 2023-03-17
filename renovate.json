@@ -1,4 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>shun-shobon/renovate-config"]
+  "extends": ["github>shun-shobon/renovate-config"],
+  "regexManagers": [
+    {
+      "fileMatch": ["\\.tsx?$"],
+      "matchStrings": [
+        "(?:import|export) .* from \"(?<depName>https://deno.land/.*?)@(?<currentValue>\\d+\\.\\d+\\.\\d+)/.*\";"
+      ],
+      "datasourceTemplate": "deno"
+    }
+  ]
 }
