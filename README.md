@@ -1,9 +1,10 @@
-# littlexml
+# @shun-shobon/littlexml
 
-A small and simple XML builder for JavaScript/TypeScript.
+1kB XML library for Node.js, Deno, Browser, Edge runtime.
 
 [![npm](https://img.shields.io/npm/v/@shun-shobon/littlexml?logo=npm)](https://www.npmjs.com/package/@shun-shobon/littlexml)
 [![deno](https://img.shields.io/github/v/release/shun-shobon/littlexml?label=deno&logo=deno)](https://deno.land/x/littlexml)
+![bundle size](https://img.shields.io/bundlephobia/minzip/@shun-shobon/littlexml)
 [![test](https://github.com/shun-shobon/littlexml/actions/workflows/test.yml/badge.svg)](https://github.com/shun-shobon/littlexml/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/shun-shobon/littlexml/branch/master/graph/badge.svg?token=VAZxHGjjpu)](https://codecov.io/gh/shun-shobon/littlexml)
 
@@ -14,16 +15,15 @@ Workers. It also works on Deno, Node.js, and browsers.
 
 ## Features
 
-- Render XML as a string
-- Render XML as a iterator
-- Render XML as a stream (browser compatible Stream API)
+- Render XML as a string, iterator, or stream.
+- Render XML with indentation.
 
 ## Support platforms
 
-- Deno
 - Node.js
+- Deno
 - Browser
-- Edge
+- Edge runtime like Cloudflare Workers, Vercel Edge Functions
 
 ## Installation
 
