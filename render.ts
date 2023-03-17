@@ -35,7 +35,9 @@ export type RenderOption = {
  * Render an XML element to a string.
  */
 export function renderToString(root: Element, options?: RenderOption): string {
-  return Array.from(renderToIterator(root, options)).join("");
+  const iterator = renderToIterator(root, options);
+
+  return Array.from(iterator).join("");
 }
 
 /**
