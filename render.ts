@@ -66,9 +66,7 @@ export function* elementToStrings(
   }
 
   if (typeof element.children === "string") {
-    yield ">";
-    yield escapeStr(element.children);
-    yield `</${element.name}>`;
+    yield `>${escapeStr(element.children)}</${element.name}>`;
     return;
   }
 
