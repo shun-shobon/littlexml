@@ -9,28 +9,16 @@ export type RenderOption = {
 };
 
 export function renderToString(root: Element, options?: RenderOption): string {
-  const version = options?.version ?? "1.0";
-
-  const xmlDeclaration = createXmlDeclaration(version);
-
-  return xmlDeclaration +
-    Array.from(elementToStrings(root, options?.indent ?? "none", 0)).join("");
+  return Array.from(renderToIterator(root, options)).join("");
 }
 
 export function renderToStream(
   root: Element,
   options?: RenderOption,
 ): ReadableStream<string> {
-  const version = options?.version ?? "1.0";
-
-  const xmlDeclaration = createXmlDeclaration(version);
-
-  const iterator = elementToStrings(root, options?.indent ?? "none", 0);
+  const iterator = renderToIterator(root, options);
 
   return new ReadableStream({
-    start(controller) {
-      controller.enqueue(xmlDeclaration);
-    },
     pull(controller) {
       const { done, value } = iterator.next();
       if (done) {
