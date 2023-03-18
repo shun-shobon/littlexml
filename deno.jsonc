@@ -4,5 +4,15 @@
     "test:ci": "deno test -A --coverage=coverage && deno coverage ./coverage --lcov --output=coverage.lcov",
     "fmt": "deno fmt",
     "build": "deno run -A scripts/build_npm.ts"
+  },
+  "test": {
+    "files": {
+      "exclude": ["npm/", "coverage/"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "exclude": ["npm/", "coverage/"]
+    }
   }
 }
