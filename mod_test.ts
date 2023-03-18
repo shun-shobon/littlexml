@@ -41,7 +41,7 @@ Deno.test("renderToString", async (t) => {
 
     assertEquals(
       xml,
-      `<?xml version="1.0" encoding="UTF-8"?><root><child /></root>`,
+      `<?xml version="1.0" encoding="UTF-8"?><root><child/></root>`,
     );
   });
 

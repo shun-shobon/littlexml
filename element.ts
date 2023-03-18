@@ -48,23 +48,22 @@ export class Element {
   ): IterableIterator<string> {
     const indent = createIndent(indentType, level);
 
-    yield `${indent}<${this.#name}`;
-
-    for (const [key, value] of this.#attributes.entries()) {
-      yield ` ${key}="${escapeStr(value)}"`;
-    }
+    const attributes = Array.from(this.#attributes.entries()).map((
+      [name, value],
+    ) => ` ${name}="${escapeStr(value)}"`).join("");
 
     if (this.#children === undefined) {
-      yield " />";
+      yield `${indent}<${this.#name}${attributes}/>`;
       return;
     }
+
+    yield `${indent}<${this.#name}${attributes}>`;
 
     if (typeof this.#children === "string") {
-      yield `>${escapeStr(this.#children)}</${this.#name}>`;
+      yield `${escapeStr(this.#children)}</${this.#name}>`;
       return;
     }
 
-    yield ">";
     for (const child of this.#children) {
       yield* child.toStringIterator(indentType, level + 1);
     }
