@@ -1,7 +1,4 @@
 {
-  "deno.enable": true,
-  "editor.defaultFormatter": "denoland.vscode-deno",
-  "[javascript][javascriptreact][typescript][typescriptreact][markdown]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
-  }
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

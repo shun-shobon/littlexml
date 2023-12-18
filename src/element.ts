@@ -1,5 +1,5 @@
-import { escapeStr } from "./escape.ts";
-import { createIndent, IndentType } from "./util.ts";
+import { escapeStr } from "./escape";
+import { createIndent, type IndentType } from "./util";
 
 export function element(name: string) {
   return new Element(name);
@@ -44,13 +44,13 @@ export class Element {
 
   *toStringIterator(
     indentType: IndentType,
-    level: number,
+    level: number
   ): IterableIterator<string> {
     const indent = createIndent(indentType, level);
 
-    const attributes = Array.from(this.#attributes.entries()).map((
-      [name, value],
-    ) => ` ${name}="${escapeStr(value)}"`).join("");
+    const attributes = Array.from(this.#attributes.entries())
+      .map(([name, value]) => ` ${name}="${escapeStr(value)}"`)
+      .join("");
 
     if (this.#children === undefined) {
       yield `${indent}<${this.#name}${attributes}/>`;

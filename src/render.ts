@@ -1,6 +1,6 @@
-import { type XmlVersion } from "./xml.ts";
-import { type Element } from "./element.ts";
-import { type IndentType } from "./util.ts";
+import { type XmlVersion } from "./xml";
+import { type Element } from "./element";
+import { type IndentType } from "./util";
 
 /**
  * Options for rendering.
@@ -44,7 +44,7 @@ export function renderToString(root: Element, options?: RenderOption): string {
  */
 export function renderToStream(
   root: Element,
-  options?: RenderOption,
+  options?: RenderOption
 ): ReadableStream<string> {
   const iterator = renderToIterator(root, options);
 
@@ -65,7 +65,7 @@ export function renderToStream(
  */
 export function* renderToIterator(
   root: Element,
-  options?: RenderOption,
+  options?: RenderOption
 ): IterableIterator<string> {
   const version = options?.version ?? "1.0";
   const encoding = options?.encoding ?? "UTF-8";
