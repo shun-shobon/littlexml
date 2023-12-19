@@ -23,6 +23,9 @@ jobs:
         with:
           bun-version: ${{ steps.tool-version.outputs.bun }}
 
+      - name: Setup | Install dependencies
+        run: bun install
+
       - name: Run | Lint
         run: bun run lint
 
@@ -43,8 +46,12 @@ jobs:
         with:
           bun-version: ${{ steps.tool-version.outputs.bun }}
 
+      - name: Setup | Install dependencies
+        run: bun install
+
       - name: Run | Format
         run: bun run format:check
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +68,9 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: ${{ steps.tool-version.outputs.bun }}
+
+      - name: Setup | Install dependencies
+        run: bun install
 
       - name: Run | Test
         run: bun run test:ci
