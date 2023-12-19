@@ -57,7 +57,10 @@ import { element, renderToString } from "npm:littlexml@0.5.0";
 You can directly import from `unpkg.com`.
 
 ```js
-import { element, renderToString } from "https://unpkg.com/@shun-shobon/littlexml@0.5.0";
+import {
+	element,
+	renderToString,
+} from "https://unpkg.com/@shun-shobon/littlexml@0.5.0";
 ```
 
 <!-- x-release-please-end -->
