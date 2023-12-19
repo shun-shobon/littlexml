@@ -49,8 +49,8 @@ You can directly import from `deno.land/x`.
 
 ```ts
 import {
-  element,
-  renderToString,
+	element,
+	renderToString,
 } from "https://deno.land/x/littlexml@0.5.0/mod.ts";
 ```
 
@@ -60,8 +60,8 @@ You can directly import from `unpkg.com`.
 
 ```js
 import {
-  element,
-  renderToString,
+	element,
+	renderToString,
 } from "https://unpkg.com/@shun-shobon/littlexml@0.5.0";
 ```
 
@@ -75,20 +75,20 @@ This example is rendering a sitemap.
 import { element, renderToString } from "@shun-shobon/littlexml";
 
 const root = element("urlset")
-  .attr("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
-  .attr("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1")
-  .child(
-    element("url")
-      .child(element("loc").text("https://example.com/"))
-      .child(element("lastmod").text("2020-01-01"))
-      .child(element("changefreq").text("daily"))
-      .child(element("priority").text("0.8"))
-      .child(
-        element("image:image")
-          .child(element("image:loc").text("https://example.com/image.png"))
-          .child(element("image:caption").text("caption"))
-      )
-  );
+	.attr("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+	.attr("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1")
+	.child(
+		element("url")
+			.child(element("loc").text("https://example.com/"))
+			.child(element("lastmod").text("2020-01-01"))
+			.child(element("changefreq").text("daily"))
+			.child(element("priority").text("0.8"))
+			.child(
+				element("image:image")
+					.child(element("image:loc").text("https://example.com/image.png"))
+					.child(element("image:caption").text("caption")),
+			),
+	);
 
 const xml = renderToString(root, { version: "1.0", indent: 2 });
 

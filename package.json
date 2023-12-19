@@ -1,39 +1,43 @@
 {
-  "name": "@shun-shobon/littlexml",
-  "version": "0.5.0",
-  "description": "1kB XML library for Node.js, Deno, Browser, Edge runtime.",
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shun-shobon/littlexml.git"
-  },
-  "homepage": "https://github.com/shun-shobon/littlexml#readme",
-  "author": "NISHIZAWA Shuntaro <me@s2n.tech> (https://s2n.tech/)",
-  "keywords": [
-    "xml",
-    "builder",
-    "utility"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
-  },
-  "sideEffects": false,
-  "scripts": {
-    "build": "tsup",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ci": "vitest run --coverage"
-  },
-  "devDependencies": {
-    "@vitest/coverage-v8": "^1.0.4",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vitest": "^1.0.4"
-  }
+	"name": "@shun-shobon/littlexml",
+	"version": "0.5.0",
+	"type": "module",
+	"description": "1kB XML library for Node.js, Deno, Browser, Edge runtime.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shun-shobon/littlexml.git"
+	},
+	"homepage": "https://github.com/shun-shobon/littlexml#readme",
+	"author": "NISHIZAWA Shuntaro <me@s2n.tech> (https://s2n.tech/)",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"types": "dist/index.d.ts",
+	"keywords": [
+		"xml",
+		"builder",
+		"utility"
+	],
+	"scripts": {
+		"build": "tsup",
+		"test": "vitest run",
+		"test:ci": "vitest run --coverage",
+		"test:watch": "vitest"
+	},
+	"devDependencies": {
+		"@shun-shobon/eslint-config": "^0.3.1",
+		"@shun-shobon/prettier-config": "^0.1.0",
+		"@vitest/coverage-v8": "^1.0.4",
+		"eslint": "^8.56.0",
+		"prettier": "^3.1.1",
+		"tsup": "^8.0.1",
+		"typescript": "^5.3.3",
+		"vitest": "^1.0.4"
+	},
+	"sideEffects": false
 }
