@@ -1,6 +1,7 @@
 {
 	"$schema": "https://github.com/googleapis/release-please/raw/main/schemas/config.json",
 	"release-type": "node",
+	"last-release-sha": "81d27892076fb0c7f19f8505dea7a8c8c29ee09c",
 	"packages": {
 		".": {
 			"extra-files": ["README.md"],
