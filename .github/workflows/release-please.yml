@@ -26,6 +26,7 @@ jobs:
         id: release
         with:
           token: ${{ steps.token.outputs.token }}
+          include-component-in-tag: false
 
   release:
     needs: release-please
