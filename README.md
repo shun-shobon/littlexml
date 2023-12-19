@@ -3,7 +3,7 @@
 1kB XML library for Node.js, Bun, Deno, Browser, Edge runtime.
 
 [![npm](https://img.shields.io/npm/v/@shun-shobon/littlexml?logo=npm)](https://www.npmjs.com/package/@shun-shobon/littlexml)
-![bundle size](https://img.shields.io/bundlephobia/minzip/@shun-shobon/littlexml)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@shun-shobon/littlexml)](https://bundlephobia.com/package/@shun-shobon/littlexml)
 [![test](https://github.com/shun-shobon/littlexml/actions/workflows/check.yml/badge.svg)](https://github.com/shun-shobon/littlexml/actions/workflows/check.yml)
 [![codecov](https://codecov.io/gh/shun-shobon/littlexml/branch/master/graph/badge.svg?token=VAZxHGjjpu)](https://codecov.io/gh/shun-shobon/littlexml)
 
