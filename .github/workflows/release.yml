@@ -1,35 +1,53 @@
-name: Release Please
-
+name: Release
 on:
-  push:
-    branches:
-      - master
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      release-created: ${{ steps.release.outputs.release_created }}
+    strategy:
+      matrix:
+        include:
+          - name: npm
+            url: https://registry.npmjs.org/
+          - name: GitHub Packages
+            url: https://npm.pkg.github.com/
     steps:
       - name: Setup | Checkout
         uses: actions/checkout@v4
 
-      - name: Setup | GitHub App
-        id: token
-        uses: tibdex/github-app-token@v2
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      - name: Setup | Get tool version
+        id: tool-version
+        run: |
+          bun=$(grep -E '^bun' .tool-versions)
+          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
 
-      - name: Run | Release Please
-        uses: google-github-actions/release-please-action@v4
-        id: release
+      - name: Setup | Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          token: ${{ steps.token.outputs.token }}
+          bun-version: ${{ steps.tool-version.outputs.bun }}
 
-  release:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release-created }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Release created ${{ needs.release-please.outputs.release-created }}"
+      - name: Setup | Install dependencies
+        run: bun install
+
+      - name: Run | Build
+        run: bun run build
+
+      - name: Setup | Registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          registry-url: ${{ matrix.url }}
+
+      - name: Publish | ${{ matrix.name }}
+        run: npm publish -r --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ matrix.name == 'npm' && secrets.NPM_TOKEN || secrets.GITHUB_TOKEN }}
