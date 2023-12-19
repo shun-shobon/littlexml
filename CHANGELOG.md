@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/shun-shobon/littlexml/compare/v0.6.1...0.6.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* Exclude component name in release tag ([854898d](https://github.com/shun-shobon/littlexml/commit/854898ddd818fe43078d03009bcd0a9731e601df))
+
 ## [0.6.1](https://github.com/shun-shobon/littlexml/compare/littlexml-0.6.0...littlexml-0.6.1) (2023-12-19)
 
 
