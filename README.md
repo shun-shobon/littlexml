@@ -49,7 +49,7 @@ import { element, renderToString } from "@shun-shobon/littlexml";
 You can directly import from `npm:@shun-shobon/littlexml`.
 
 ```ts
-import { element, renderToString } from "npm:littlexml@0.5.0";
+import { element, renderToString } from "npm:littlexml@0.6.0";
 ```
 
 ### Browser
@@ -60,7 +60,7 @@ You can directly import from `unpkg.com`.
 import {
 	element,
 	renderToString,
-} from "https://unpkg.com/@shun-shobon/littlexml@0.5.0";
+} from "https://unpkg.com/@shun-shobon/littlexml@0.6.0";
 ```
 
 <!-- x-release-please-end -->
