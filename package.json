@@ -25,6 +25,10 @@
 	],
 	"scripts": {
 		"build": "tsup",
+		"format": "prettier -w .",
+		"format:check": "prettier -c .",
+		"lint": "eslint .",
+		"lint:fix": "eslint --fix .",
 		"test": "vitest run",
 		"test:ci": "vitest run --coverage",
 		"test:watch": "vitest"

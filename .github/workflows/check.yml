@@ -1,0 +1,73 @@
+name: Check
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup | Get tool version
+        id: tool-version
+        run: |
+          bun=$(grep -E '^bun' .tool-versions)
+          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
+
+      - name: Setup | Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ steps.tool-version.outputs.bun }}
+
+      - name: Run | Lint
+        run: bun run lint
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup | Get tool version
+        id: tool-version
+        run: |
+          bun=$(grep -E '^bun' .tool-versions)
+          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
+
+      - name: Setup | Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ steps.tool-version.outputs.bun }}
+
+      - name: Run | Format
+        run: bun run format:check
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup | Get tool version
+        id: tool-version
+        run: |
+          bun=$(grep -E '^bun' .tool-versions)
+          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
+
+      - name: Setup | Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ steps.tool-version.outputs.bun }}
+
+      - name: Run | Test
+        run: bun run test:ci
+
+      - name: Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage-final.json
+          fail_ci_if_error: true
