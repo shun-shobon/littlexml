@@ -1,6 +1,6 @@
 {
 	"name": "@shun-shobon/littlexml",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"type": "module",
 	"description": "1kB XML library for Node.js, Bun, Deno, Browser, Edge runtime.",
 	"repository": {
