@@ -2,7 +2,7 @@
 	"name": "@shun-shobon/littlexml",
 	"version": "0.5.0",
 	"type": "module",
-	"description": "1kB XML library for Node.js, Deno, Browser, Edge runtime.",
+	"description": "1kB XML library for Node.js, Bun, Deno, Browser, Edge runtime.",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/shun-shobon/littlexml.git"
@@ -10,14 +10,19 @@
 	"homepage": "https://github.com/shun-shobon/littlexml#readme",
 	"author": "NISHIZAWA Shuntaro <me@s2n.tech> (https://s2n.tech/)",
 	"license": "MIT",
-	"main": "dist/index.js",
+	"main": "./dist/index.js",
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		}
 	},
-	"types": "dist/index.d.ts",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
 	"keywords": [
 		"xml",
 		"builder",

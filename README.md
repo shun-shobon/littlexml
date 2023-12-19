@@ -1,9 +1,8 @@
 # @shun-shobon/littlexml
 
-1kB XML library for Node.js, Deno, Browser, Edge runtime.
+1kB XML library for Node.js, Bun, Deno, Browser, Edge runtime.
 
 [![npm](https://img.shields.io/npm/v/@shun-shobon/littlexml?logo=npm)](https://www.npmjs.com/package/@shun-shobon/littlexml)
-[![deno](https://img.shields.io/github/v/release/shun-shobon/littlexml?label=deno&logo=deno)](https://deno.land/x/littlexml)
 ![bundle size](https://img.shields.io/bundlephobia/minzip/@shun-shobon/littlexml)
 [![test](https://github.com/shun-shobon/littlexml/actions/workflows/test.yml/badge.svg)](https://github.com/shun-shobon/littlexml/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/shun-shobon/littlexml/branch/master/graph/badge.svg?token=VAZxHGjjpu)](https://codecov.io/gh/shun-shobon/littlexml)
@@ -11,7 +10,7 @@
 ## About
 
 This library is designed to run on small JavaScript runtimes such as Cloudflare
-Workers. It also works on Deno, Node.js, and browsers.
+Workers. It also works on Node.js, Bun, Deno, and browsers.
 
 ## Features
 
@@ -22,14 +21,16 @@ Workers. It also works on Deno, Node.js, and browsers.
 
 - Node.js
 - Deno
+- Bun
 - Browser
 - Edge runtime like Cloudflare Workers, Vercel Edge Functions
 
 ## Installation
 
-### Node.js
+### Node.js / Bun
 
-Install package from npm.
+Install package from npm. You can also use yarn/pnpm instead of npm.
+If you are using Bun, you can install with `bun add` command.
 
 ```sh
 npm install @shun-shobon/littlexml
@@ -45,13 +46,10 @@ import { element, renderToString } from "@shun-shobon/littlexml";
 
 ### Deno
 
-You can directly import from `deno.land/x`.
+You can directly import from `npm:@shun-shobon/littlexml`.
 
 ```ts
-import {
-	element,
-	renderToString,
-} from "https://deno.land/x/littlexml@0.5.0/mod.ts";
+import { element, renderToString } from "npm:littlexml@0.5.0";
 ```
 
 ### Browser
@@ -59,10 +57,7 @@ import {
 You can directly import from `unpkg.com`.
 
 ```js
-import {
-	element,
-	renderToString,
-} from "https://unpkg.com/@shun-shobon/littlexml@0.5.0";
+import { element, renderToString } from "https://unpkg.com/@shun-shobon/littlexml@0.5.0";
 ```
 
 <!-- x-release-please-end -->
