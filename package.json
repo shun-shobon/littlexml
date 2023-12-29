@@ -40,7 +40,7 @@
 	},
 	"devDependencies": {
 		"@shun-shobon/eslint-config": "^0.4.8",
-		"@shun-shobon/prettier-config": "^0.2.2",
+		"@shun-shobon/prettier-config": "^0.2.3",
 		"@vitest/coverage-v8": "^1.1.0",
 		"eslint": "^8.56.0",
 		"prettier": "^3.1.1",
