@@ -39,7 +39,7 @@
 		"test:watch": "vitest"
 	},
 	"devDependencies": {
-		"@shun-shobon/eslint-config": "^0.4.8",
+		"@shun-shobon/eslint-config": "^0.4.9",
 		"@shun-shobon/prettier-config": "^0.2.3",
 		"@vitest/coverage-v8": "^1.1.0",
 		"eslint": "^8.56.0",
