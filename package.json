@@ -41,12 +41,12 @@
 	"devDependencies": {
 		"@shun-shobon/eslint-config": "^0.4.9",
 		"@shun-shobon/prettier-config": "^0.2.3",
-		"@vitest/coverage-v8": "^1.1.0",
+		"@vitest/coverage-v8": "^1.1.1",
 		"eslint": "^8.56.0",
 		"prettier": "^3.1.1",
 		"tsup": "^8.0.1",
 		"typescript": "^5.3.3",
-		"vitest": "^1.1.0"
+		"vitest": "^1.1.1"
 	},
 	"sideEffects": false
 }
