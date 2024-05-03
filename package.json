@@ -42,7 +42,7 @@
 		"@shun-shobon/eslint-config": "^0.10.1",
 		"@shun-shobon/prettier-config": "^0.4.0",
 		"@vitest/coverage-v8": "^1.6.0",
-		"eslint": "^8.57.0",
+		"eslint": "^9.2.0",
 		"prettier": "^3.2.5",
 		"tsup": "^8.0.2",
 		"typescript": "^5.4.5",
