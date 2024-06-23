@@ -31,7 +31,7 @@ jobs:
           echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
 
       - name: Setup | Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: ${{ steps.tool-version.outputs.bun }}
 
