@@ -12,7 +12,7 @@ jobs:
       release-created: ${{ steps.release.outputs.release_created }}
     steps:
       - name: Setup | Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup | GitHub App
         id: token
