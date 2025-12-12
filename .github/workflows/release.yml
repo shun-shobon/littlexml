@@ -22,7 +22,7 @@ jobs:
             url: https://npm.pkg.github.com/
     steps:
       - name: Setup | Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup | Get tool version
         id: tool-version
@@ -31,7 +31,7 @@ jobs:
           echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
 
       - name: Setup | Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1
         with:
           bun-version: ${{ steps.tool-version.outputs.bun }}
 
@@ -42,7 +42,7 @@ jobs:
         run: bun run build
 
       - name: Setup | Registry
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: lts/*
           registry-url: ${{ matrix.url }}
