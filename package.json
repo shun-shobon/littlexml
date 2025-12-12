@@ -39,14 +39,14 @@
 		"test:watch": "vitest"
 	},
 	"devDependencies": {
-		"@shun-shobon/eslint-config": "^0.13.6",
-		"@shun-shobon/prettier-config": "^0.4.8",
-		"@vitest/coverage-v8": "^1.6.1",
-		"eslint": "^9.14.0",
-		"prettier": "^3.5.3",
-		"tsup": "^8.5.1",
-		"typescript": "^5.9.3",
-		"vitest": "^1.6.1"
+		"@shun-shobon/eslint-config": "0.13.6",
+		"@shun-shobon/prettier-config": "0.4.8",
+		"@vitest/coverage-v8": "1.6.1",
+		"eslint": "9.39.2",
+		"prettier": "3.7.4",
+		"tsup": "8.5.1",
+		"typescript": "5.9.3",
+		"vitest": "1.6.1"
 	},
 	"sideEffects": false
 }
