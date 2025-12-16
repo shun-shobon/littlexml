@@ -35,11 +35,14 @@
 		"format:check": "prettier -c .",
 		"lint": "eslint .",
 		"lint:fix": "eslint --fix .",
+		"release": "pnpm build && changeset publish",
 		"test": "vitest run",
 		"test:ci": "vitest run --coverage",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"version-package": "changeset version && pnpm format"
 	},
 	"devDependencies": {
+		"@changesets/cli": "2.29.8",
 		"@shun-shobon/style-guide": "1.2.2",
 		"@vitest/coverage-v8": "4.0.15",
 		"eslint": "9.39.2",
