@@ -95,7 +95,6 @@ describe("renderToStream", () => {
 async function streamToString(stream: ReadableStream<string>): Promise<string> {
 	const reader = stream.getReader();
 	let result = "";
-	// eslint-disable-next-line typescript/no-unnecessary-condition, no-constant-condition
 	while (true) {
 		const { done, value } = await reader.read();
 		if (done) {

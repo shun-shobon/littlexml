@@ -16,7 +16,6 @@
 		"esModuleInterop": true,
 		"verbatimModuleSyntax": true,
 
-		"checkJs": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 
