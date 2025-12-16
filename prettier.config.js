@@ -1,5 +1,5 @@
-import { shun_shobon } from "@shun-shobon/style-guide/eslint";
+import { shun_shobon } from "@shun-shobon/style-guide/prettier";
 
 export default shun_shobon({
-	ignores: ["**/CHANGELOG.md", ".release-please-manifest.json"],
+	ignoreFiles: ["**/CHANGELOG.md", ".release-please-manifest.json"],
 });
