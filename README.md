@@ -42,14 +42,12 @@ You can import from the package as `@shun-shobon/littlexml`.
 import { element, renderToString } from "@shun-shobon/littlexml";
 ```
 
-<!-- x-release-please-start-version -->
-
 ### Deno
 
 You can directly import from `npm:@shun-shobon/littlexml`.
 
 ```ts
-import { element, renderToString } from "npm:littlexml@0.6.2";
+import { element, renderToString } from "npm:littlexml@latest";
 ```
 
 ### Browser
@@ -60,10 +58,8 @@ You can directly import from `unpkg.com`.
 import {
 	element,
 	renderToString,
-} from "https://unpkg.com/@shun-shobon/littlexml@0.6.2";
+} from "https://unpkg.com/@shun-shobon/littlexml@latest";
 ```
-
-<!-- x-release-please-end -->
 
 ## Example
 
