@@ -1,82 +1,55 @@
-name: Check
+name: check
 on:
+  pull_request:
   push:
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     steps:
       - name: Setup | Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Setup | Get tool version
-        id: tool-version
-        run: |
-          bun=$(grep -E '^bun' .tool-versions)
-          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
-
-      - name: Setup | Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ steps.tool-version.outputs.bun }}
-
-      - name: Setup | Install dependencies
-        run: bun install
+      - name: Setup | Development environment
+        uses: ./.github/actions/setup
 
       - name: Run | Lint
-        run: bun run lint
+        run: pnpm run lint
 
   format:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     steps:
       - name: Setup | Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Setup | Get tool version
-        id: tool-version
-        run: |
-          bun=$(grep -E '^bun' .tool-versions)
-          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
-
-      - name: Setup | Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ steps.tool-version.outputs.bun }}
-
-      - name: Setup | Install dependencies
-        run: bun install
+      - name: Setup | Development environment
+        uses: ./.github/actions/setup
 
       - name: Run | Format
-        run: bun run format:check
+        run: pnpm run format:check
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     steps:
       - name: Setup | Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Setup | Get tool version
-        id: tool-version
-        run: |
-          bun=$(grep -E '^bun' .tool-versions)
-          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
-
-      - name: Setup | Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ steps.tool-version.outputs.bun }}
-
-      - name: Setup | Install dependencies
-        run: bun install
+      - name: Setup | Development environment
+        uses: ./.github/actions/setup
 
       - name: Run | Test
-        run: bun run test:ci
+        run: pnpm run test:ci
 
-      - name: Codecov
-        uses: codecov/codecov-action@v5
+      - name: Finish | Codecov
+        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/coverage-final.json

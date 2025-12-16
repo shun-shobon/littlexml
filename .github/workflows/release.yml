@@ -1,53 +1,25 @@
-name: Release
+name: release
 on:
   workflow_call:
-    secrets:
-      NPM_TOKEN:
-        required: true
   workflow_dispatch:
 
 permissions:
   contents: read
-  packages: write
+  id-token: write
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - name: npm
-            url: https://registry.npmjs.org/
-          - name: GitHub Packages
-            url: https://npm.pkg.github.com/
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
     steps:
       - name: Setup | Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Setup | Get tool version
-        id: tool-version
-        run: |
-          bun=$(grep -E '^bun' .tool-versions)
-          echo "bun=${bun#bun }" >> $GITHUB_OUTPUT
-
-      - name: Setup | Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ steps.tool-version.outputs.bun }}
-
-      - name: Setup | Install dependencies
-        run: bun install
+      - name: Setup | Development environment
+        uses: ./.github/actions/setup
 
       - name: Run | Build
         run: bun run build
 
-      - name: Setup | Registry
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          registry-url: ${{ matrix.url }}
-
-      - name: Publish | ${{ matrix.name }}
-        run: npm publish -r --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ matrix.name == 'npm' && secrets.NPM_TOKEN || secrets.GITHUB_TOKEN }}
+      - name: Finish | Publish
+        run: pnpm publish -r --access public
