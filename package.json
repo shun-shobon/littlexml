@@ -41,12 +41,12 @@
 	},
 	"devDependencies": {
 		"@shun-shobon/style-guide": "1.2.2",
-		"@vitest/coverage-v8": "1.6.1",
+		"@vitest/coverage-v8": "4.0.15",
 		"eslint": "9.39.2",
 		"prettier": "3.7.4",
 		"tsup": "8.5.0",
 		"typescript": "5.9.3",
-		"vitest": "1.6.1"
+		"vitest": "4.0.15"
 	},
 	"sideEffects": false
 }
