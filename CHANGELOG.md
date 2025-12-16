@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.3
+
+### Patch Changes
+
+- 7ebce07: change bundler from tsup to tsdown
+
 ## [0.6.2](https://github.com/shun-shobon/littlexml/compare/v0.6.1...0.6.2) (2023-12-19)
 
 ### Bug Fixes
