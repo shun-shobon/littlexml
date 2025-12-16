@@ -11,14 +11,14 @@
 	"author": "NISHIZAWA Shuntaro <me@s2n.tech> (https://s2n.tech/)",
 	"license": "MIT",
 	"packageManager": "pnpm@10.25.0",
-	"main": "./dist/index.js",
+	"main": "./dist/index.cjs",
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
+			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
 		}
 	},
-	"types": "./dist/index.d.ts",
+	"types": "./dist/index.d.cts",
 	"files": [
 		"dist",
 		"README.md",
@@ -30,7 +30,7 @@
 		"utility"
 	],
 	"scripts": {
-		"build": "tsup",
+		"build": "tsdown",
 		"format": "prettier -w .",
 		"format:check": "prettier -c .",
 		"lint": "eslint .",
@@ -44,7 +44,7 @@
 		"@vitest/coverage-v8": "4.0.15",
 		"eslint": "9.39.2",
 		"prettier": "3.7.4",
-		"tsup": "8.5.0",
+		"tsdown": "0.18.0",
 		"typescript": "5.9.3",
 		"vitest": "4.0.15"
 	},
