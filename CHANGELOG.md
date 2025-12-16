@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4
+
+### Patch Changes
+
+- e7c9a06: Add publishConfig to package.json
+
 ## 0.6.3
 
 ### Patch Changes
