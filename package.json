@@ -12,13 +12,13 @@
 	"license": "MIT",
 	"packageManager": "pnpm@10.25.0",
 	"main": "./dist/index.cjs",
-	"types": "./dist/index.d.cts",
 	"exports": {
 		".": {
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
 		}
 	},
+	"types": "./dist/index.d.cts",
 	"files": [
 		"dist",
 		"README.md",
@@ -50,6 +50,10 @@
 		"tsdown": "0.18.0",
 		"typescript": "5.9.3",
 		"vitest": "4.0.15"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org"
 	},
 	"sideEffects": false
 }
