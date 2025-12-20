@@ -44,12 +44,12 @@
 	"devDependencies": {
 		"@changesets/cli": "2.29.8",
 		"@shun-shobon/style-guide": "1.2.2",
-		"@vitest/coverage-v8": "4.0.15",
+		"@vitest/coverage-v8": "4.0.16",
 		"eslint": "9.39.2",
 		"prettier": "3.7.4",
 		"tsdown": "0.18.0",
 		"typescript": "5.9.3",
-		"vitest": "4.0.15"
+		"vitest": "4.0.16"
 	},
 	"publishConfig": {
 		"access": "public",
