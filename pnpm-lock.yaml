@@ -12,8 +12,8 @@ importers:
         specifier: 2.29.8
         version: 2.29.8
       '@shun-shobon/style-guide':
-        specifier: 1.4.0
-        version: 1.4.0(@typescript-eslint/utils@8.50.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(prettier@3.7.4)(storybook@10.1.10(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)
+        specifier: 1.5.0
+        version: 1.5.0(@typescript-eslint/utils@8.50.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(prettier@3.7.4)(storybook@10.1.10(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)
       '@vitest/coverage-v8':
         specifier: 4.0.16
         version: 4.0.16(vitest@4.0.16)
@@ -448,8 +448,8 @@ packages:
   '@napi-rs/wasm-runtime@1.1.0':
     resolution: {integrity: sha512-Fq6DJW+Bb5jaWE69/qOE0D1TUN9+6uWhCeZpdnSBk14pjLcCWR7Q8n49PTSPHazM37JqrsdpEthXy2xn6jWWiA==}
 
-  '@next/eslint-plugin-next@16.0.10':
-    resolution: {integrity: sha512-b2NlWN70bbPLmfyoLvvidPKWENBYYIe017ZGUpElvQjDytCWgxPJx7L9juxHt0xHvNVA08ZHJdOyhGzon/KJuw==}
+  '@next/eslint-plugin-next@16.1.0':
+    resolution: {integrity: sha512-sooC/k0LCF4/jLXYHpgfzJot04lZQqsttn8XJpTguP8N3GhqXN3wSkh68no2OcZzS/qeGwKDFTqhZ8WofdXmmQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -678,8 +678,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shun-shobon/style-guide@1.4.0':
-    resolution: {integrity: sha512-+4NM6QwQ7EL9D5GKqOc6rnznxE1eVAn5sBu4dT9+kGHZ5kl1JRIYctjlhoVMSiKpSo808n0XghfZxjgSwUImWw==}
+  '@shun-shobon/style-guide@1.5.0':
+    resolution: {integrity: sha512-b39PgGJFk8CZ0CIx1YpGSNB0qw+OBbcanDUPRjbYTXFl9wHWODpIyy0h5pDww0AJ4r1uhYWVOXHmHb7/fhJoBw==}
     peerDependencies:
       eslint: ^9.0.0
       prettier: ^3.0.0
@@ -3467,7 +3467,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@next/eslint-plugin-next@16.0.10':
+  '@next/eslint-plugin-next@16.1.0':
     dependencies:
       fast-glob: 3.3.1
 
@@ -3600,11 +3600,11 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.54.0':
     optional: true
 
-  '@shun-shobon/style-guide@1.4.0(@typescript-eslint/utils@8.50.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(prettier@3.7.4)(storybook@10.1.10(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)':
+  '@shun-shobon/style-guide@1.5.0(@typescript-eslint/utils@8.50.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(prettier@3.7.4)(storybook@10.1.10(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)':
     dependencies:
       '@eslint/core': 1.0.0
       '@eslint/js': 9.39.2
-      '@next/eslint-plugin-next': 16.0.10
+      '@next/eslint-plugin-next': 16.1.0
       '@typescript-eslint/parser': 8.50.0(eslint@9.39.2)(typescript@5.9.3)
       astro-eslint-parser: 1.2.2
       eslint-config-flat-gitignore: 2.1.0(eslint@9.39.2)
