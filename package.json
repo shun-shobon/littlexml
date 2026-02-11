@@ -10,7 +10,7 @@
 	"homepage": "https://github.com/shun-shobon/littlexml#readme",
 	"author": "NISHIZAWA Shuntaro <me@s2n.tech> (https://s2n.tech/)",
 	"license": "MIT",
-	"packageManager": "pnpm@10.28.2",
+	"packageManager": "pnpm@10.29.1",
 	"main": "./dist/index.cjs",
 	"types": "./dist/index.d.cts",
 	"exports": {
