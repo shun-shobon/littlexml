@@ -43,7 +43,7 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "2.29.8",
-		"@shun-shobon/style-guide": "3.6.1",
+		"@shun-shobon/style-guide": "4.0.0",
 		"@vitest/coverage-v8": "4.0.18",
 		"eslint": "9.39.3",
 		"prettier": "3.8.1",
