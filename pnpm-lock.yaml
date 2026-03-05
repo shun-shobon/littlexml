@@ -12,8 +12,8 @@ importers:
         specifier: 2.29.8
         version: 2.29.8
       '@shun-shobon/style-guide':
-        specifier: 5.0.1
-        version: 5.0.1(@typescript-eslint/utils@8.56.1(eslint@10.0.2)(typescript@5.9.3))(eslint@10.0.2)(prettier@3.8.1)(storybook@10.2.10(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
+        specifier: 5.1.0
+        version: 5.1.0(@typescript-eslint/utils@8.56.1(eslint@10.0.2)(typescript@5.9.3))(eslint@10.0.2)(prettier@3.8.1)(storybook@10.2.10(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       '@vitest/coverage-v8':
         specifier: 4.0.18
         version: 4.0.18(vitest@4.0.18)
@@ -705,8 +705,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shun-shobon/style-guide@5.0.1':
-    resolution: {integrity: sha512-UmmneyU4T5JPOCqJypWiwVoZQstEkms5TWxiRoIO45prx6MNPwa2b48X5vunzTYw0uMc8luwp7IgU5tHZqTlWQ==}
+  '@shun-shobon/style-guide@5.1.0':
+    resolution: {integrity: sha512-v/K7c5NH7ZfrD6SLrfEDI/6D8xSYUDGeDGe2qOggPHA66iyIVYjG2vuhggjNUrDEP5L1a4TBraLqjDkhun4G1w==}
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
       prettier: ^3.0.0
@@ -1720,8 +1720,8 @@ packages:
     resolution: {integrity: sha512-c/c15i26VrJ4IRt5Z89DnIzCGDn9EcebibhAOjw5ibqEHsE1wLUgkPn9RDmNcUKyU87GeaL633nyJ+pplFR2ZQ==}
     engines: {node: '>=18'}
 
-  globals@17.3.0:
-    resolution: {integrity: sha512-yMqGUQVVCkD4tqjOJf3TnrvaaHDMYp4VlUSObbkIiuCPe/ofdMBFIAcBbCSRFWOnos6qRiTVStDwqPLUclaxIw==}
+  globals@17.4.0:
+    resolution: {integrity: sha512-hjrNztw/VajQwOLsMNT1cbJiH2muO3OROCHnbehc8eY5JyD2gqz4AcMHPqgaOR59DjgUjYAYLeH699g/eWi2jw==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -3619,7 +3619,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.58.0':
     optional: true
 
-  '@shun-shobon/style-guide@5.0.1(@typescript-eslint/utils@8.56.1(eslint@10.0.2)(typescript@5.9.3))(eslint@10.0.2)(prettier@3.8.1)(storybook@10.2.10(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)':
+  '@shun-shobon/style-guide@5.1.0(@typescript-eslint/utils@8.56.1(eslint@10.0.2)(typescript@5.9.3))(eslint@10.0.2)(prettier@3.8.1)(storybook@10.2.10(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)':
     dependencies:
       '@eslint/core': 1.1.0
       '@eslint/js': 10.0.1(eslint@10.0.2)
@@ -3639,7 +3639,7 @@ snapshots:
       eslint-plugin-simple-import-sort: 12.1.1(eslint@10.0.2)
       eslint-plugin-storybook: 10.2.13(eslint@10.0.2)(storybook@10.2.10(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       eslint-plugin-unicorn: 63.0.0(eslint@10.0.2)
-      globals: 17.3.0
+      globals: 17.4.0
       local-pkg: 1.1.2
       prettier-plugin-astro: 0.14.1
       prettier-plugin-jsdoc: 1.5.0(prettier@3.8.1)
@@ -4877,7 +4877,7 @@ snapshots:
 
   globals@16.5.0: {}
 
-  globals@17.3.0: {}
+  globals@17.4.0: {}
 
   globalthis@1.0.4:
     dependencies:
