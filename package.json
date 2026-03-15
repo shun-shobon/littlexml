@@ -47,7 +47,7 @@
 		"@vitest/coverage-v8": "4.0.18",
 		"eslint": "10.0.3",
 		"prettier": "3.8.1",
-		"tsdown": "0.21.1",
+		"tsdown": "0.21.2",
 		"typescript": "5.9.3",
 		"vitest": "4.0.18"
 	},
