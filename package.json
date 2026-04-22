@@ -42,7 +42,7 @@
 		"version-package": "changeset version && pnpm format"
 	},
 	"devDependencies": {
-		"@changesets/cli": "2.30.0",
+		"@changesets/cli": "2.31.0",
 		"@shun-shobon/style-guide": "5.1.1",
 		"@vitest/coverage-v8": "4.1.4",
 		"eslint": "10.2.0",
