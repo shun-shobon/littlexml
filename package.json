@@ -45,7 +45,7 @@
 		"@changesets/cli": "2.31.0",
 		"@shun-shobon/style-guide": "5.1.1",
 		"@vitest/coverage-v8": "4.1.9",
-		"eslint": "10.5.0",
+		"eslint": "10.6.0",
 		"prettier": "3.9.0",
 		"tsdown": "0.22.3",
 		"typescript": "5.9.3",
