@@ -68,6 +68,18 @@ export function renderToStream(root: Child, options?: RenderOption): ReadableStr
 }
 
 /**
+ * Render an XML element to a stream of UTF-8 encoded bytes, which can be passed
+ * to `new Response()` directly. The `encoding` option only changes the XML
+ * declaration.
+ */
+export function renderToByteStream(
+	root: Child,
+	options?: RenderOption,
+): ReadableStream<Uint8Array> {
+	return renderToStream(root, options).pipeThrough(new TextEncoderStream());
+}
+
+/**
  * Render an XML element to an iterator of strings.
  */
 export function* renderToIterator(root: Child, options?: RenderOption): IterableIterator<string> {

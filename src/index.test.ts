@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { element, renderToStream, renderToString } from ".";
+import { element, renderToByteStream, renderToStream, renderToString } from ".";
 
 describe("renderToString", () => {
 	test("basic", () => {
@@ -165,6 +165,16 @@ describe("renderToStream", () => {
   <child>Goodbye World!</child>
 </root>`,
 		);
+	});
+});
+
+describe("renderToByteStream", () => {
+	test("basic", async () => {
+		const root = element("root").text("こんにちは");
+
+		const actual = await new Response(renderToByteStream(root)).text();
+
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root>こんにちは</root>`);
 	});
 });
 
