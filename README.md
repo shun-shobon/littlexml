@@ -1,16 +1,16 @@
 # @shun-shobon/littlexml
 
-1kB XML library for Node.js, Bun, Deno, Browser, Edge runtime.
+1kB XML library for Node.js, Bun, Browser, Edge runtime.
 
 [![npm](https://img.shields.io/npm/v/@shun-shobon/littlexml?logo=npm)](https://www.npmjs.com/package/@shun-shobon/littlexml)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/@shun-shobon/littlexml)](https://bundlephobia.com/package/@shun-shobon/littlexml)
-[![test](https://github.com/shun-shobon/littlexml/actions/workflows/check.yml/badge.svg)](https://github.com/shun-shobon/littlexml/actions/workflows/check.yml)
+[![ci](https://github.com/shun-shobon/littlexml/actions/workflows/ci.yml/badge.svg)](https://github.com/shun-shobon/littlexml/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/shun-shobon/littlexml/branch/master/graph/badge.svg?token=VAZxHGjjpu)](https://codecov.io/gh/shun-shobon/littlexml)
 
 ## About
 
 This library is designed to run on small JavaScript runtimes such as Cloudflare
-Workers. It also works on Node.js, Bun, Deno, and browsers.
+Workers. It also works on Node.js, Bun, and browsers.
 
 ## Features
 
@@ -20,7 +20,6 @@ Workers. It also works on Node.js, Bun, Deno, and browsers.
 ## Support platforms
 
 - Node.js
-- Deno
 - Bun
 - Browser
 - Edge runtime like Cloudflare Workers, Vercel Edge Functions
@@ -40,14 +39,6 @@ You can import from the package as `@shun-shobon/littlexml`.
 
 ```ts
 import { element, renderToString } from "@shun-shobon/littlexml";
-```
-
-### Deno
-
-You can directly import from `npm:@shun-shobon/littlexml`.
-
-```ts
-import { element, renderToString } from "npm:littlexml@latest";
 ```
 
 ### Browser
