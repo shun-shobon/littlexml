@@ -42,17 +42,14 @@ export function renderToString(root: Element, options?: RenderOption): string {
 /**
  * Render an XML element to a stream of strings.
  */
-export function renderToStream(
-	root: Element,
-	options?: RenderOption,
-): ReadableStream<string> {
+export function renderToStream(root: Element, options?: RenderOption): ReadableStream<string> {
 	const iterator = renderToIterator(root, options);
 
 	return new ReadableStream({
 		pull(controller) {
-			// eslint-disable-next-line typescript/no-unsafe-assignment
+			// oxlint-disable-next-line typescript/no-unsafe-assignment
 			const { done, value } = iterator.next();
-			if (done) {
+			if (done ?? false) {
 				controller.close();
 			} else {
 				controller.enqueue(value);
@@ -64,10 +61,7 @@ export function renderToStream(
 /**
  * Render an XML element to an iterator of strings.
  */
-export function* renderToIterator(
-	root: Element,
-	options?: RenderOption,
-): IterableIterator<string> {
+export function* renderToIterator(root: Element, options?: RenderOption): IterableIterator<string> {
 	const version = options?.version ?? "1.0";
 	const encoding = options?.encoding ?? "UTF-8";
 	const indent = options?.indent ?? "none";

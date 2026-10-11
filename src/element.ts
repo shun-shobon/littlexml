@@ -26,9 +26,7 @@ export class Element {
 		if (typeof this.#children === "string") {
 			throw new TypeError("Cannot add child to element with text content");
 		}
-		if (this.#children === undefined) {
-			this.#children = [];
-		}
+		this.#children ??= [];
 		this.#children.push(...children);
 
 		return this;
@@ -43,10 +41,7 @@ export class Element {
 		return this;
 	}
 
-	*toStringIterator(
-		indentType: IndentType,
-		level: number,
-	): IterableIterator<string> {
+	*toStringIterator(indentType: IndentType, level: number): IterableIterator<string> {
 		const indent = createIndent(indentType, level);
 
 		const attributes = Array.from(this.#attributes.entries())
