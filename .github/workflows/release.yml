@@ -1,0 +1,116 @@
+# This workflow is managed by gh actions-lock.
+
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Version to bump
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: easy-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Setup | Development environment
+        uses: $/.github/actions/setup
+
+      - name: Run | Create Release Pull Request
+        uses: shun-shobon/easy-release@v0.2.0
+        with:
+          mode: prepare
+          release-type: ${{ inputs.release_type }}
+
+  draft:
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      ready: ${{ steps.draft.outputs.ready }}
+      tag: ${{ steps.draft.outputs.tag }}
+      commit: ${{ steps.draft.outputs.commit }}
+      release-id: ${{ steps.draft.outputs.release-id }}
+    steps:
+      - name: Setup | Checkout Merged Commit
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Run | Create Draft Release
+        id: draft
+        uses: shun-shobon/easy-release@v0.2.0
+        with:
+          mode: draft
+
+  npm:
+    needs: draft
+    if: needs.draft.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ needs.draft.outputs.commit }}
+
+      - name: Setup | Development environment
+        uses: $/.github/actions/setup
+
+      - name: Build | Package
+        run: pnpm run build
+
+      - name: Run | Publish to npm
+        run: pnpm publish --no-git-checks
+
+  release:
+    needs: [draft, npm]
+    if: needs.draft.outputs.ready == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ needs.draft.outputs.commit }}
+
+      - name: Run | Publish Release
+        uses: shun-shobon/easy-release@v0.2.0
+        with:
+          mode: publish
+          release-id: ${{ needs.draft.outputs.release-id }}
+          tag: ${{ needs.draft.outputs.tag }}
+          commit: ${{ needs.draft.outputs.commit }}

@@ -39,14 +39,11 @@
 		"format:check": "oxfmt --check",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix",
-		"release": "pnpm build && changeset publish",
 		"test": "vitest run",
 		"test:ci": "vitest run --coverage",
-		"test:watch": "vitest",
-		"version-package": "changeset version && pnpm format"
+		"test:watch": "vitest"
 	},
 	"devDependencies": {
-		"@changesets/cli": "3.0.3",
 		"@shun-shobon/oxfmt-config": "7.1.0",
 		"@shun-shobon/oxlint-config": "7.1.0",
 		"@vitest/coverage-v8": "5.0.3",
