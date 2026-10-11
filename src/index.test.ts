@@ -73,6 +73,41 @@ describe("renderToString", () => {
 		);
 	});
 
+	test("mixed content", () => {
+		const root = element("p").text("foo ").child(element("b").text("bar"), " & ").text("baz");
+
+		const actual = renderToString(root);
+
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><p>foo <b>bar</b> &amp; baz</p>`);
+	});
+
+	test("mixed content with indent", () => {
+		const root = element("body").child(
+			element("p").child(element("b").text("1")),
+			element("p").child("foo ", element("span").child(element("b").text("bar")), " baz"),
+		);
+
+		const actual = renderToString(root, { indent: 2 });
+
+		expect(actual).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <p>
+    <b>1</b>
+  </p>
+  <p>foo <span><b>bar</b></span> baz</p>
+</body>`,
+		);
+	});
+
+	test("empty text", () => {
+		const root = element("root").child(element("a").text(""), element("b").child());
+
+		const actual = renderToString(root);
+
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root><a></a><b/></root>`);
+	});
+
 	test("indent", () => {
 		const root = element("root")
 			.child(element("child").text("Hello World!"))

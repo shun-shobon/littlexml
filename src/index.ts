@@ -1,4 +1,5 @@
-export type { Child, Content } from "./element";
+// oxlint-disable-next-line typescript/no-deprecated
+export type { Child, Content, XmlNode } from "./element";
 export { Element, element } from "./element";
 export type { RenderOption } from "./render";
 export { renderToIterator, renderToStream, renderToString } from "./render";
