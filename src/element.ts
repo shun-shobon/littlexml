@@ -1,4 +1,5 @@
 import { escapeStr } from "./escape";
+import { Markup } from "./markup";
 import type { IndentType } from "./util";
 import { createIndent } from "./util";
 
@@ -16,7 +17,7 @@ export type Content = string | Element[];
  * A node in an element's content. A string is a text node and is escaped on
  * rendering.
  */
-export type XmlNode = Element | string;
+export type XmlNode = Element | Markup | string;
 
 /**
  * Value accepted by `child()`. `null`, `undefined` and `false` are ignored,
@@ -68,7 +69,7 @@ export class Element {
 
 export function pushNodes(nodes: XmlNode[], children: readonly Child[]): void {
 	for (const child of children) {
-		if (typeof child === "string" || child instanceof Element) {
+		if (typeof child === "string" || child instanceof Element || child instanceof Markup) {
 			nodes.push(child);
 		} else if (child != null && child !== false) {
 			pushNodes(nodes, child);
@@ -85,12 +86,17 @@ export function* renderNodes(
 	level: number,
 ): Generator<string, boolean> {
 	// Indenting would add whitespace to text, which changes the content.
-	const isMixed = nodes.some((node) => typeof node === "string");
+	const isMixed = nodes.some(
+		(node) => typeof node === "string" || (node instanceof Markup && node.isText),
+	);
+	const childIndentType = isMixed ? "none" : indentType;
 	for (const node of nodes) {
 		if (typeof node === "string") {
 			yield escapeStr(node);
+		} else if (node instanceof Markup) {
+			yield createIndent(childIndentType, level) + node.xml;
 		} else {
-			yield* node.toStringIterator(isMixed ? "none" : indentType, level);
+			yield* node.toStringIterator(childIndentType, level);
 		}
 	}
 	return isMixed;

@@ -1,4 +1,5 @@
-import type { Element } from "./element";
+import type { Child, XmlNode } from "./element";
+import { pushNodes, renderNodes } from "./element";
 import type { IndentType } from "./util";
 import type { XmlVersion } from "./xml";
 
@@ -31,9 +32,10 @@ export interface RenderOption {
 }
 
 /**
- * Render an XML element to a string.
+ * Render an XML element to a string. `root` can also be a list of nodes, such
+ * as processing instructions and comments followed by the root element.
  */
-export function renderToString(root: Element, options?: RenderOption): string {
+export function renderToString(root: Child, options?: RenderOption): string {
 	const iterator = renderToIterator(root, options);
 
 	return Array.from(iterator).join("");
@@ -42,7 +44,7 @@ export function renderToString(root: Element, options?: RenderOption): string {
 /**
  * Render an XML element to a stream of strings.
  */
-export function renderToStream(root: Element, options?: RenderOption): ReadableStream<string> {
+export function renderToStream(root: Child, options?: RenderOption): ReadableStream<string> {
 	const iterator = renderToIterator(root, options);
 
 	return new ReadableStream({
@@ -61,15 +63,18 @@ export function renderToStream(root: Element, options?: RenderOption): ReadableS
 /**
  * Render an XML element to an iterator of strings.
  */
-export function* renderToIterator(root: Element, options?: RenderOption): IterableIterator<string> {
+export function* renderToIterator(root: Child, options?: RenderOption): IterableIterator<string> {
 	const version = options?.version ?? "1.0";
 	const encoding = options?.encoding ?? "UTF-8";
 	const indent = options?.indent ?? "none";
 
 	const xmlDeclaration = createXmlDeclaration(version, encoding);
 
+	const nodes: XmlNode[] = [];
+	pushNodes(nodes, [root]);
+
 	yield xmlDeclaration;
-	yield* root.toStringIterator(indent, 0);
+	yield* renderNodes(nodes, indent, 0);
 }
 
 function createXmlDeclaration(version: XmlVersion, encoding: string): string {
