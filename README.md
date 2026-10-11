@@ -251,8 +251,12 @@ const xml = renderToString(root, { indent: 2 });
   `TypeError` as with `element()`.
 - Attribute values can be strings, numbers or booleans. Attributes whose value
   is `null`, `undefined` or `false` are omitted (unlike `attr()`, which renders
-  `false` as `"false"`). `key` is consumed by the JSX transform and is not
-  rendered.
+  `false` as `"false"`).
+- `key` is rendered as a normal attribute, such as `<entry key="db.url">`. The
+  JSX transform passes it separately from the other attributes, so it is always
+  rendered first. Write `key` before any spread: `<entry {...props} key="k" />`
+  makes TypeScript import `createElement`, which this package does not provide,
+  and fails at runtime. `<entry key="k" {...props} />` works.
 - Children are the same as `child()`: elements, strings, `cdata()` and so on.
   Numbers are not accepted; convert them to strings.
 - A JSX expression is typed as `Child`, not `Element`, because function

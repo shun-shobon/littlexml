@@ -145,8 +145,25 @@ describe("jsx", () => {
 		expect(() => <root>{"\0"}</root>).toThrow(TypeError);
 	});
 
+	test("key is rendered before the other attributes", () => {
+		const props = { a: "1" };
+
+		expect(render(<entry b="2" key="db.url" c={3} />)).toBe(`<entry key="db.url" b="2" c="3"/>`);
+		expect(render(<entry key={1} {...props} />)).toBe(`<entry key="1" a="1"/>`);
+		expect(render(<entry key={null} />)).toBe(`<entry/>`);
+		expect(render(jsx("entry", { b: "2" }, "k"))).toBe(`<entry key="k" b="2"/>`);
+		expect(() => jsx("entry", {}, "\0")).toThrow(TypeError);
+	});
+
+	test("key is ignored for function components", () => {
+		const Entry = ({ value }: { value: string }) => <entry>{value}</entry>;
+
+		expect(render(jsx(Entry, { value: "v" }, "k"))).toBe(`<entry>v</entry>`);
+	});
+
 	test("jsxDEV", () => {
 		expect(render(jsxDEV("root", { a: 1, children: "x" }))).toBe(`<root a="1">x</root>`);
+		expect(render(jsxDEV("entry", { b: "2" }, "k"))).toBe(`<entry key="k" b="2"/>`);
 	});
 });
 

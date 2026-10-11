@@ -8,8 +8,7 @@ import { element } from "./element";
 export type AttributeValue = string | number | boolean | null | undefined;
 
 /**
- * Props of an intrinsic element. `key` is consumed by the JSX transform and
- * is not rendered.
+ * Props of an intrinsic element.
  */
 export interface IntrinsicElementProps {
 	children?: Child;
@@ -36,18 +35,24 @@ export declare namespace JSX {
 /**
  * Create an element from a tag name, or call a function component with the
  * props.
+ *
+ * `key` is rendered as an attribute before the other attributes, because the
+ * JSX transform passes it separately from the props. It is ignored for
+ * function components.
  */
-export function jsx(tag: string | Component<any>, props: IntrinsicElementProps): Child {
+export function jsx(
+	tag: string | Component<any>,
+	props: IntrinsicElementProps,
+	key?: AttributeValue,
+): Child {
 	if (typeof tag === "function") {
 		return tag(props);
 	}
 	const { children, ...attributes } = props;
 	const el = element(tag);
-	for (const [name, value] of Object.entries(attributes)) {
+	for (const [name, value] of Object.entries({ key, ...attributes })) {
 		if (value != null && value !== false) {
-			// Only `children` can be a `Child`; see `IntrinsicElementProps`.
-			// oxlint-disable-next-line typescript/no-unsafe-type-assertion
-			el.attr(name, value as string | number | boolean);
+			el.attr(name, value);
 		}
 	}
 	return el.child(children);
