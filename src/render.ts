@@ -83,24 +83,16 @@ export function renderToByteStream(
  * Render an XML element to an iterator of strings.
  */
 export function* renderToIterator(root: Child, options?: RenderOption): IterableIterator<string> {
-	const version = options?.version ?? "1.0";
-	const encoding = options?.encoding ?? "UTF-8";
-	const indent = options?.indent ?? "none";
-
 	const nodes: XmlNode[] = [];
 	pushNodes(nodes, [root]);
 
 	let isFirst = !(options?.declaration ?? true);
 	if (!isFirst) {
-		yield createXmlDeclaration(version, encoding);
+		yield `<?xml version="${options?.version ?? "1.0"}" encoding="${options?.encoding ?? "UTF-8"}"?>`;
 	}
-	for (const chunk of renderNodes(nodes, indent, 0)) {
+	for (const chunk of renderNodes(nodes, options?.indent ?? "none", 0)) {
 		// Without the declaration, the indent of the first node would be a leading newline.
 		yield isFirst ? chunk.replace(/^\n/u, "") : chunk;
 		isFirst = false;
 	}
-}
-
-function createXmlDeclaration(version: XmlVersion, encoding: string): string {
-	return `<?xml version="${version}" encoding="${encoding}"?>`;
 }

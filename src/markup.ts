@@ -22,7 +22,7 @@ export function cdata(text: string): Markup {
  */
 export function comment(text: string): Markup {
 	if (/--|-$/u.test(text)) {
-		throw new TypeError(`Comment must not contain "--" or end with "-"`);
+		throw new TypeError(`Invalid comment: ${text}`);
 	}
 	return new Markup(`<!--${text}-->`, false);
 }
@@ -34,7 +34,7 @@ export function comment(text: string): Markup {
 export function instruction(target: string, data = ""): Markup {
 	const content = data === "" ? target : `${target} ${data}`;
 	if (/^xml$/iu.test(target) || content.includes("?>")) {
-		throw new TypeError(`Processing instruction must not target "xml" or contain "?>"`);
+		throw new TypeError(`Invalid processing instruction: ${content}`);
 	}
 	return new Markup(`<?${content}?>`, false);
 }
