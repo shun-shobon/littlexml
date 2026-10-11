@@ -123,6 +123,21 @@ describe("renderToString", () => {
 </root>`,
 		);
 	});
+
+	test("without declaration", () => {
+		const root = element("svg").child(element("circle").attr("r", 10));
+
+		expect(renderToString(root, { declaration: false })).toBe(`<svg><circle r="10"/></svg>`);
+		expect(renderToString(root, { declaration: false, indent: 2 })).toBe(
+			`<svg>\n  <circle r="10"/>\n</svg>`,
+		);
+	});
+
+	test("fragment without declaration", () => {
+		const fragment = [" foo ", element("b").text("bar")];
+
+		expect(renderToString(fragment, { declaration: false, indent: 2 })).toBe(` foo <b>bar</b>`);
+	});
 });
 
 describe("renderToStream", () => {

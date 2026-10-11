@@ -29,6 +29,13 @@ export interface RenderOption {
 	 * @default "none"
 	 */
 	indent?: IndentType;
+	/**
+	 * Whether to output the XML declaration. Set `false` to render a fragment,
+	 * such as inline SVG.
+	 *
+	 * @default true
+	 */
+	declaration?: boolean;
 }
 
 /**
@@ -68,13 +75,18 @@ export function* renderToIterator(root: Child, options?: RenderOption): Iterable
 	const encoding = options?.encoding ?? "UTF-8";
 	const indent = options?.indent ?? "none";
 
-	const xmlDeclaration = createXmlDeclaration(version, encoding);
-
 	const nodes: XmlNode[] = [];
 	pushNodes(nodes, [root]);
 
-	yield xmlDeclaration;
-	yield* renderNodes(nodes, indent, 0);
+	let isFirst = !(options?.declaration ?? true);
+	if (!isFirst) {
+		yield createXmlDeclaration(version, encoding);
+	}
+	for (const chunk of renderNodes(nodes, indent, 0)) {
+		// Without the declaration, the indent of the first node would be a leading newline.
+		yield isFirst ? chunk.replace(/^\n/u, "") : chunk;
+		isFirst = false;
+	}
 }
 
 function createXmlDeclaration(version: XmlVersion, encoding: string): string {
