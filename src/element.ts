@@ -2,6 +2,7 @@ import { escapeStr } from "./escape";
 import { Markup } from "./markup";
 import type { IndentType } from "./util";
 import { createIndent } from "./util";
+import { validateName } from "./validate";
 
 export function element(name: string): Element {
 	return new Element(name);
@@ -31,10 +32,12 @@ export class Element {
 	readonly #children: XmlNode[] = [];
 
 	constructor(name: string) {
+		validateName(name);
 		this.#name = name;
 	}
 
 	attr(name: string, value: string | number | boolean): this {
+		validateName(name);
 		this.#attributes.set(name, String(value));
 		return this;
 	}

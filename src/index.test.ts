@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { element, renderToByteStream, renderToStream, renderToString } from ".";
+import { Element, element, renderToByteStream, renderToStream, renderToString } from ".";
 
 describe("renderToString", () => {
 	test("basic", () => {
@@ -121,6 +121,25 @@ describe("renderToString", () => {
   <child>Hello World!</child>
   <child>Goodbye World!</child>
 </root>`,
+		);
+	});
+});
+
+describe("validation", () => {
+	test("invalid element name", () => {
+		expect(() => element("1root")).toThrow(TypeError);
+		expect(() => new Element("a b")).toThrow(TypeError);
+	});
+
+	test("invalid attribute name", () => {
+		expect(() => element("a").attr('x="1" onload', "v")).toThrow(TypeError);
+	});
+
+	test("namespaced names", () => {
+		const root = element("x:root").attr("xmlns:x", "urn:x").text("ok");
+
+		expect(renderToString(root)).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?><x:root xmlns:x="urn:x">ok</x:root>`,
 		);
 	});
 
