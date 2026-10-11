@@ -39,6 +39,9 @@ export declare namespace JSX {
  * `key` is rendered as an attribute before the other attributes, because the
  * JSX transform passes it separately from the props. It is ignored for
  * function components.
+ *
+ * Throws `TypeError` if an attribute value is an object, such as an element,
+ * `cdata()` or an array.
  */
 export function jsx(
 	tag: string | Component<any>,
@@ -52,6 +55,9 @@ export function jsx(
 	const el = element(tag);
 	for (const [name, value] of Object.entries({ key, ...attributes })) {
 		if (value != null && value !== false) {
+			if (typeof value === "object") {
+				throw new TypeError(`Invalid attribute value: ${name}`);
+			}
 			el.attr(name, value);
 		}
 	}

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import type { Child } from ".";
-import { cdata, comment, renderToString } from ".";
+import { cdata, comment, element, renderToString } from ".";
 import { jsxDEV } from "./jsx-dev-runtime";
 import { Fragment, jsx } from "./jsx-runtime";
 
@@ -143,6 +143,14 @@ describe("jsx", () => {
 		expect(() => <root {...{ "a b": "x" }} />).toThrow(TypeError);
 		expect(() => <root a={"\0"} />).toThrow(TypeError);
 		expect(() => <root>{"\0"}</root>).toThrow(TypeError);
+	});
+
+	test("object attribute values throw", () => {
+		expect(() => <root a={element("x")} />).toThrow(TypeError);
+		expect(() => <root a={cdata("x")} />).toThrow(TypeError);
+		expect(() => <root a={["x"]} />).toThrow(TypeError);
+		// @ts-expect-error -- an untyped key can still be an object.
+		expect(() => jsx("root", {}, element("x"))).toThrow(TypeError);
 	});
 
 	test("key is rendered before the other attributes", () => {
