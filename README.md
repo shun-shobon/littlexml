@@ -22,6 +22,7 @@ Workers. It also works on Node.js, Bun, and browsers.
 - Optional XML declaration for fragments such as inline SVG.
 - Conditional children (`null`, `undefined`, and `false` are ignored) and
   nested arrays of children.
+- JSX runtime.
 
 ## Support platforms
 
@@ -200,6 +201,90 @@ console output:
 When indentation is enabled, the content of an element that contains text
 (including CDATA) is rendered as is without indentation, because added
 whitespace would change the text.
+
+### JSX
+
+The package also provides a JSX runtime. Enable it in `tsconfig.json`:
+
+```json
+{
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "@shun-shobon/littlexml"
+	}
+}
+```
+
+Or enable it for a single file with a pragma comment:
+
+```tsx
+/** @jsxImportSource @shun-shobon/littlexml */
+```
+
+```tsx
+import { cdata, renderToString } from "@shun-shobon/littlexml";
+
+const Url = ({ loc }: { loc: string }) => (
+	<url>
+		<loc>{loc}</loc>
+	</url>
+);
+
+const root = (
+	<urlset
+		xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+		xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+	>
+		{pages.map((page) => (
+			<Url loc={page.url} />
+		))}
+		{showTop && <Url loc="https://example.com/" />}
+		<description>{cdata(html)}</description>
+	</urlset>
+);
+
+const xml = renderToString(root, { indent: 2 });
+```
+
+- Any tag and attribute name is accepted, including namespaced names such as
+  `<image:loc>` and `xmlns:image`. Invalid names and characters throw
+  `TypeError` as with `element()`.
+- Attribute values can be strings, numbers or booleans. Attributes whose value
+  is `null`, `undefined` or `false` are omitted (unlike `attr()`, which renders
+  `false` as `"false"`). Other values such as elements, `cdata()` and arrays
+  throw `TypeError`.
+- `key` is rendered as a normal attribute, such as `<entry key="db.url">`. The
+  JSX transform passes it separately from the other attributes, so it is always
+  rendered first. Write `key` before any spread: `<entry {...props} key="k" />`
+  makes TypeScript import `createElement`, which this package does not provide,
+  and fails at runtime. `<entry key="k" {...props} />` works.
+- Children are the same as `child()`: elements, strings, `cdata()` and so on.
+  Numbers are not accepted; convert them to strings.
+- A JSX expression is typed as `Child`, not `Element`, because function
+  components and fragments (`<>...</>`) can return text, arrays or nothing.
+  Pass it to `child()` or `renderTo*()`.
+- Babel and Vite (oxc) reject namespaced tags by default. Set
+  `throwIfNamespace: false` in their JSX options (`oxc.jsx` in Vite). TypeScript
+  and esbuild need no extra configuration.
+
+#### Using with Hono's JSX
+
+If your project uses Hono's JSX (`"jsxImportSource": "hono/jsx"`), keep it in
+`tsconfig.json` and add the `@jsxImportSource @shun-shobon/littlexml` pragma to
+the files that build XML. Elements from the two runtimes cannot be mixed in one
+file, and littlexml elements are not Hono JSX nodes, so return them as a
+response body instead of passing them to `c.html()`:
+
+```tsx
+/** @jsxImportSource @shun-shobon/littlexml */
+import { renderToByteStream } from "@shun-shobon/littlexml";
+
+app.get("/sitemap.xml", (c) =>
+	c.body(renderToByteStream(<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" />), {
+		headers: { "Content-Type": "application/xml; charset=utf-8" },
+	}),
+);
+```
 
 ### Streaming response on Cloudflare Workers
 

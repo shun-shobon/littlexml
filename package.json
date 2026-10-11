@@ -33,6 +33,26 @@
 				"types": "./dist/index.d.cts",
 				"default": "./dist/index.cjs"
 			}
+		},
+		"./jsx-runtime": {
+			"import": {
+				"types": "./dist/jsx-runtime.d.mts",
+				"default": "./dist/jsx-runtime.mjs"
+			},
+			"require": {
+				"types": "./dist/jsx-runtime.d.cts",
+				"default": "./dist/jsx-runtime.cjs"
+			}
+		},
+		"./jsx-dev-runtime": {
+			"import": {
+				"types": "./dist/jsx-dev-runtime.d.mts",
+				"default": "./dist/jsx-dev-runtime.mjs"
+			},
+			"require": {
+				"types": "./dist/jsx-dev-runtime.d.cts",
+				"default": "./dist/jsx-dev-runtime.cjs"
+			}
 		}
 	},
 	"publishConfig": {
@@ -47,7 +67,8 @@
 		"lint:fix": "oxlint --fix",
 		"test": "vitest run",
 		"test:ci": "vitest run --coverage",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@shun-shobon/oxfmt-config": "7.1.0",
