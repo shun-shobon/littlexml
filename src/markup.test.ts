@@ -17,6 +17,10 @@ describe("cdata", () => {
 		expect(cdata("a]]>b]]>").xml).toBe("<![CDATA[a]]]]><![CDATA[>b]]]]><![CDATA[>]]>");
 	});
 
+	test("invalid character", () => {
+		expect(() => cdata("\uFFFE")).toThrow(TypeError);
+	});
+
 	test("is treated as text when indenting", () => {
 		const root = element("item").child(
 			element("title").text("Title"),
@@ -55,6 +59,7 @@ describe("comment", () => {
 	test("invalid", () => {
 		expect(() => comment("a--b")).toThrow(TypeError);
 		expect(() => comment("a-")).toThrow(TypeError);
+		expect(() => comment("\u0000")).toThrow(TypeError);
 	});
 });
 
@@ -82,5 +87,8 @@ describe("instruction", () => {
 		expect(() => instruction("XML")).toThrow(TypeError);
 		expect(() => instruction("target", "a?>b")).toThrow(TypeError);
 		expect(() => instruction("a?>")).toThrow(TypeError);
+		expect(() => instruction("x><y")).toThrow(TypeError);
+		expect(() => instruction("")).toThrow(TypeError);
+		expect(() => instruction("target", "\uD800")).toThrow(TypeError);
 	});
 });
