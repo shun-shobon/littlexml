@@ -37,6 +37,19 @@ jobs:
       - name: Run | Format
         run: pnpm run format:check
 
+  typecheck:
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+    steps:
+      - name: Setup | Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup | Development environment
+        uses: $/.github/actions/setup
+
+      - name: Run | Typecheck
+        run: pnpm run typecheck
+
   test:
     runs-on: ubuntu-slim
     timeout-minutes: 10
@@ -58,7 +71,7 @@ jobs:
           fail_ci_if_error: true
 
   status-check:
-    needs: [lint, format, test]
+    needs: [lint, format, typecheck, test]
     if: ${{ always() }}
     runs-on: ubuntu-slim
     timeout-minutes: 5

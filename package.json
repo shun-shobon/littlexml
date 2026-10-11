@@ -67,7 +67,8 @@
 		"lint:fix": "oxlint --fix",
 		"test": "vitest run",
 		"test:ci": "vitest run --coverage",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@shun-shobon/oxfmt-config": "7.1.0",
