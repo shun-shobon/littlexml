@@ -3,9 +3,9 @@ minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@shun-shobon/style-guide"
 
-onlyBuiltDependencies:
-  - esbuild
-  - unrs-resolver
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
 
 saveExact: true
 
