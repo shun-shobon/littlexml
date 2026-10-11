@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { element, renderToStream, renderToString } from ".";
+import { element, renderToByteStream, renderToStream, renderToString } from ".";
 
 describe("renderToString", () => {
 	test("basic", () => {
@@ -18,6 +18,16 @@ describe("renderToString", () => {
 
 		expect(actual).toBe(
 			`<?xml version="1.0" encoding="UTF-8"?><root foo="bar">Hello World!</root>`,
+		);
+	});
+
+	test("non-string attributes", () => {
+		const root = element("svg").attr("width", 100).attr("height", 0.5).attr("hidden", false);
+
+		const actual = renderToString(root);
+
+		expect(actual).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?><svg width="100" height="0.5" hidden="false"/>`,
 		);
 	});
 
@@ -41,6 +51,63 @@ describe("renderToString", () => {
 		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root><child/></root>`);
 	});
 
+	test("conditional and nested children", () => {
+		const items = ["a", "b"];
+		const root = element("root").child(
+			false,
+			null,
+			undefined,
+			items.map((item) => element("item").text(item)),
+			[[element("deep")], [false]],
+		);
+
+		const actual = renderToString(root, { indent: 2 });
+
+		expect(actual).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <item>a</item>
+  <item>b</item>
+  <deep/>
+</root>`,
+		);
+	});
+
+	test("mixed content", () => {
+		const root = element("p").text("foo ").child(element("b").text("bar"), " & ").text("baz");
+
+		const actual = renderToString(root);
+
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><p>foo <b>bar</b> &amp; baz</p>`);
+	});
+
+	test("mixed content with indent", () => {
+		const root = element("body").child(
+			element("p").child(element("b").text("1")),
+			element("p").child("foo ", element("span").child(element("b").text("bar")), " baz"),
+		);
+
+		const actual = renderToString(root, { indent: 2 });
+
+		expect(actual).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?>
+<body>
+  <p>
+    <b>1</b>
+  </p>
+  <p>foo <span><b>bar</b></span> baz</p>
+</body>`,
+		);
+	});
+
+	test("empty text", () => {
+		const root = element("root").child(element("a").text(""), element("b").child());
+
+		const actual = renderToString(root);
+
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root><a></a><b/></root>`);
+	});
+
 	test("indent", () => {
 		const root = element("root")
 			.child(element("child").text("Hello World!"))
@@ -55,6 +122,21 @@ describe("renderToString", () => {
   <child>Goodbye World!</child>
 </root>`,
 		);
+	});
+
+	test("without declaration", () => {
+		const root = element("svg").child(element("circle").attr("r", 10));
+
+		expect(renderToString(root, { declaration: false })).toBe(`<svg><circle r="10"/></svg>`);
+		expect(renderToString(root, { declaration: false, indent: 2 })).toBe(
+			`<svg>\n  <circle r="10"/>\n</svg>`,
+		);
+	});
+
+	test("fragment without declaration", () => {
+		const fragment = [" foo ", element("b").text("bar")];
+
+		expect(renderToString(fragment, { declaration: false, indent: 2 })).toBe(` foo <b>bar</b>`);
 	});
 });
 
@@ -83,6 +165,16 @@ describe("renderToStream", () => {
   <child>Goodbye World!</child>
 </root>`,
 		);
+	});
+});
+
+describe("renderToByteStream", () => {
+	test("basic", async () => {
+		const root = element("root").text("こんにちは");
+
+		const actual = await new Response(renderToByteStream(root)).text();
+
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root>こんにちは</root>`);
 	});
 });
 

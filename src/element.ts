@@ -1,4 +1,5 @@
 import { escapeStr } from "./escape";
+import { Markup } from "./markup";
 import type { IndentType } from "./util";
 import { createIndent } from "./util";
 
@@ -6,38 +7,45 @@ export function element(name: string): Element {
 	return new Element(name);
 }
 
+/**
+ * @deprecated Element content is now an ordered list of nodes. This type is
+ * no longer used.
+ */
 export type Content = string | Element[];
+
+/**
+ * A node in an element's content. A string is a text node and is escaped on
+ * rendering.
+ */
+export type XmlNode = Element | Markup | string;
+
+/**
+ * Value accepted by `child()`. `null`, `undefined` and `false` are ignored,
+ * and arrays are flattened.
+ */
+export type Child = XmlNode | null | undefined | false | readonly Child[];
 
 export class Element {
 	readonly #name: string;
 	readonly #attributes = new Map<string, string>();
-	#children?: Content;
+	readonly #children: XmlNode[] = [];
 
 	constructor(name: string) {
 		this.#name = name;
 	}
 
-	attr(name: string, value: string): this {
-		this.#attributes.set(name, value);
+	attr(name: string, value: string | number | boolean): this {
+		this.#attributes.set(name, String(value));
 		return this;
 	}
 
-	child(...children: Element[]): this {
-		if (typeof this.#children === "string") {
-			throw new TypeError("Cannot add child to element with text content");
-		}
-		this.#children ??= [];
-		this.#children.push(...children);
-
+	child(...children: Child[]): this {
+		pushNodes(this.#children, children);
 		return this;
 	}
 
 	text(text: string): this {
-		if (this.#children !== undefined) {
-			throw new TypeError("Cannot add text to element with children");
-		}
-		this.#children = text;
-
+		this.#children.push(text);
 		return this;
 	}
 
@@ -48,21 +56,48 @@ export class Element {
 			.map(([name, value]) => ` ${name}="${escapeStr(value)}"`)
 			.join("");
 
-		if (this.#children === undefined) {
+		if (this.#children.length === 0) {
 			yield `${indent}<${this.#name}${attributes}/>`;
 			return;
 		}
 
 		yield `${indent}<${this.#name}${attributes}>`;
-
-		if (typeof this.#children === "string") {
-			yield `${escapeStr(this.#children)}</${this.#name}>`;
-			return;
-		}
-
-		for (const child of this.#children) {
-			yield* child.toStringIterator(indentType, level + 1);
-		}
-		yield `${indent}</${this.#name}>`;
+		const isMixed = yield* renderNodes(this.#children, indentType, level + 1);
+		yield `${isMixed ? "" : indent}</${this.#name}>`;
 	}
+}
+
+export function pushNodes(nodes: XmlNode[], children: readonly Child[]): void {
+	for (const child of children) {
+		if (typeof child === "string" || child instanceof Element || child instanceof Markup) {
+			nodes.push(child);
+		} else if (child != null && child !== false) {
+			pushNodes(nodes, child);
+		}
+	}
+}
+
+/**
+ * Renders nodes and returns whether they contain text.
+ */
+export function* renderNodes(
+	nodes: readonly XmlNode[],
+	indentType: IndentType,
+	level: number,
+): Generator<string, boolean> {
+	// Indenting would add whitespace to text, which changes the content.
+	const isMixed = nodes.some(
+		(node) => typeof node === "string" || (node instanceof Markup && node.isText),
+	);
+	const childIndentType = isMixed ? "none" : indentType;
+	for (const node of nodes) {
+		if (typeof node === "string") {
+			yield escapeStr(node);
+		} else if (node instanceof Markup) {
+			yield createIndent(childIndentType, level) + node.xml;
+		} else {
+			yield* node.toStringIterator(childIndentType, level);
+		}
+	}
+	return isMixed;
 }
