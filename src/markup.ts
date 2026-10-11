@@ -1,3 +1,5 @@
+import { validateChars, validateName } from "./validate";
+
 /**
  * Pre-rendered markup such as CDATA sections, comments and processing
  * instructions. Create it with `cdata()`, `comment()` or `instruction()`.
@@ -13,6 +15,7 @@ export class Markup {
  * Create a CDATA section. `]]>` in the text is split into multiple sections.
  */
 export function cdata(text: string): Markup {
+	validateChars(text);
 	return new Markup(`<![CDATA[${text.replaceAll("]]>", "]]]]><![CDATA[>")}]]>`, true);
 }
 
@@ -21,6 +24,7 @@ export function cdata(text: string): Markup {
  * `-`.
  */
 export function comment(text: string): Markup {
+	validateChars(text);
 	if (/--|-$/u.test(text)) {
 		throw new TypeError(`Invalid comment: ${text}`);
 	}
@@ -29,9 +33,12 @@ export function comment(text: string): Markup {
 
 /**
  * Create a processing instruction like `<?xml-stylesheet href="style.xsl"?>`.
- * Throws `TypeError` if the target is `xml` (case-insensitive) or `?>` appears.
+ * Throws `TypeError` if the target is not an XML name or is `xml`
+ * (case-insensitive), or if `?>` appears.
  */
 export function instruction(target: string, data = ""): Markup {
+	validateName(target);
+	validateChars(data);
 	const content = data === "" ? target : `${target} ${data}`;
 	if (/^xml$/iu.test(target) || content.includes("?>")) {
 		throw new TypeError(`Invalid processing instruction: ${content}`);

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { element, renderToByteStream, renderToStream, renderToString } from ".";
+import { Element, element, renderToByteStream, renderToStream, renderToString } from ".";
 
 describe("renderToString", () => {
 	test("basic", () => {
@@ -121,6 +121,44 @@ describe("renderToString", () => {
   <child>Hello World!</child>
   <child>Goodbye World!</child>
 </root>`,
+		);
+	});
+});
+
+describe("validation", () => {
+	test("invalid element name", () => {
+		expect(() => element("1root")).toThrow(TypeError);
+		expect(() => new Element("a b")).toThrow(TypeError);
+	});
+
+	test("invalid attribute name", () => {
+		expect(() => element("a").attr('x="1" onload', "v")).toThrow(TypeError);
+	});
+
+	test("invalid character in attribute value", () => {
+		expect(() => element("a").attr("x", "\u0000")).toThrow(TypeError);
+	});
+
+	test("invalid character in text", () => {
+		expect(() => element("a").text("\uFFFF")).toThrow(TypeError);
+	});
+
+	test("invalid character in text node passed to child()", () => {
+		expect(() => element("a").child("\u0000")).toThrow(TypeError);
+		expect(() => element("a").child(["ok", ["\uDC00"]])).toThrow(TypeError);
+	});
+
+	test("number and boolean attribute values are accepted", () => {
+		const root = element("a").attr("n", 1).attr("b", false);
+
+		expect(renderToString(root)).toBe(`<?xml version="1.0" encoding="UTF-8"?><a n="1" b="false"/>`);
+	});
+
+	test("namespaced names", () => {
+		const root = element("x:root").attr("xmlns:x", "urn:x").text("ok");
+
+		expect(renderToString(root)).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?><x:root xmlns:x="urn:x">ok</x:root>`,
 		);
 	});
 
