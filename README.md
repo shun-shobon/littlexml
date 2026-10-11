@@ -1,6 +1,6 @@
 # @shun-shobon/littlexml
 
-1kB XML library for Node.js, Bun, Browser, Edge runtime.
+Tiny XML library (~1.3kB min+gzip) for Node.js, Bun, Browser, Edge runtime.
 
 [![npm](https://img.shields.io/npm/v/@shun-shobon/littlexml?logo=npm)](https://www.npmjs.com/package/@shun-shobon/littlexml)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/@shun-shobon/littlexml)](https://bundlephobia.com/package/@shun-shobon/littlexml)
@@ -151,9 +151,12 @@ console output:
 </rss>
 ```
 
-`comment(text)` creates `<!--text-->`. `comment()` and `instruction()` throw
-`TypeError` for input that would produce invalid XML, such as `--` in a comment
-or `?>` in a processing instruction.
+`comment(text)` creates `<!--text-->`.
+
+Input that would produce invalid XML throws `TypeError`: element, attribute and
+processing instruction target names that are not XML names, characters not
+allowed in XML 1.0 (such as `\0` or lone surrogates), `--` in a comment, and
+`?>` in a processing instruction.
 
 ### Mixed content and inline SVG
 
