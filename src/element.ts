@@ -2,7 +2,7 @@ import { escapeStr } from "./escape";
 import { Markup } from "./markup";
 import type { IndentType } from "./util";
 import { createIndent } from "./util";
-import { validateName } from "./validate";
+import { validateChars, validateName } from "./validate";
 
 export function element(name: string): Element {
 	return new Element(name);
@@ -38,7 +38,9 @@ export class Element {
 
 	attr(name: string, value: string | number | boolean): this {
 		validateName(name);
-		this.#attributes.set(name, String(value));
+		const str = String(value);
+		validateChars(str);
+		this.#attributes.set(name, str);
 		return this;
 	}
 
@@ -48,7 +50,7 @@ export class Element {
 	}
 
 	text(text: string): this {
-		this.#children.push(text);
+		this.child(text);
 		return this;
 	}
 
@@ -72,7 +74,10 @@ export class Element {
 
 export function pushNodes(nodes: XmlNode[], children: readonly Child[]): void {
 	for (const child of children) {
-		if (typeof child === "string" || child instanceof Element || child instanceof Markup) {
+		if (typeof child === "string") {
+			validateChars(child);
+			nodes.push(child);
+		} else if (child instanceof Element || child instanceof Markup) {
 			nodes.push(child);
 		} else if (child != null && child !== false) {
 			pushNodes(nodes, child);

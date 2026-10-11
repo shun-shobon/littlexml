@@ -135,6 +135,25 @@ describe("validation", () => {
 		expect(() => element("a").attr('x="1" onload', "v")).toThrow(TypeError);
 	});
 
+	test("invalid character in attribute value", () => {
+		expect(() => element("a").attr("x", "\u0000")).toThrow(TypeError);
+	});
+
+	test("invalid character in text", () => {
+		expect(() => element("a").text("\uFFFF")).toThrow(TypeError);
+	});
+
+	test("invalid character in text node passed to child()", () => {
+		expect(() => element("a").child("\u0000")).toThrow(TypeError);
+		expect(() => element("a").child(["ok", ["\uDC00"]])).toThrow(TypeError);
+	});
+
+	test("number and boolean attribute values are accepted", () => {
+		const root = element("a").attr("n", 1).attr("b", false);
+
+		expect(renderToString(root)).toBe(`<?xml version="1.0" encoding="UTF-8"?><a n="1" b="false"/>`);
+	});
+
 	test("namespaced names", () => {
 		const root = element("x:root").attr("xmlns:x", "urn:x").text("ok");
 
