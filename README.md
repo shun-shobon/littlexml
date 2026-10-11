@@ -14,8 +14,14 @@ Workers. It also works on Node.js, Bun, and browsers.
 
 ## Features
 
-- Render XML as a string, iterator, or stream.
+- Render XML as a string, iterator, string stream, or UTF-8 byte stream.
 - Render XML with indentation.
+- Mixed content (text and child elements in any order).
+- CDATA sections, comments, and processing instructions such as
+  `<?xml-stylesheet?>`.
+- Optional XML declaration for fragments such as inline SVG.
+- Conditional children (`null`, `undefined`, and `false` are ignored) and
+  nested arrays of children.
 
 ## Support platforms
 
@@ -93,4 +99,120 @@ console output:
     </image:image>
   </url>
 </urlset>
+```
+
+### RSS with CDATA and a stylesheet
+
+Pass an array to render processing instructions or comments before the root
+element. `cdata()` splits `]]>` in the content so the output is always valid.
+
+```typescript
+import { cdata, element, instruction, renderToString } from "@shun-shobon/littlexml";
+
+const posts = [{ title: "Hello", url: "https://example.com/hello", html: "<p>Hi!</p>" }];
+
+const rss = element("rss")
+	.attr("version", "2.0")
+	.child(
+		element("channel")
+			.child(element("title").text("My Blog"))
+			.child(
+				posts.map((post) =>
+					element("item")
+						.child(element("title").text(post.title))
+						.child(element("link").text(post.url))
+						.child(element("description").child(cdata(post.html))),
+				),
+			),
+	);
+
+const xml = renderToString(
+	[instruction("xml-stylesheet", 'type="text/xsl" href="/rss.xsl"'), rss],
+	{
+		indent: 2,
+	},
+);
+```
+
+console output:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/rss.xsl"?>
+<rss version="2.0">
+  <channel>
+    <title>My Blog</title>
+    <item>
+      <title>Hello</title>
+      <link>https://example.com/hello</link>
+      <description><![CDATA[<p>Hi!</p>]]></description>
+    </item>
+  </channel>
+</rss>
+```
+
+`comment(text)` creates `<!--text-->`. `comment()` and `instruction()` throw
+`TypeError` for input that would produce invalid XML, such as `--` in a comment
+or `?>` in a processing instruction.
+
+### Mixed content and inline SVG
+
+Text and child elements can be mixed in any order with `text()` and `child()`
+(a string passed to `child()` is a text node). Falsy children are ignored, and
+attribute values can be numbers or booleans. Set `declaration: false` to render
+a fragment.
+
+```typescript
+import { element, renderToString } from "@shun-shobon/littlexml";
+
+const showLabel = true;
+
+const svg = element("svg")
+	.attr("xmlns", "http://www.w3.org/2000/svg")
+	.attr("width", 100)
+	.attr("height", 100)
+	.child(
+		element("circle").attr("cx", 50).attr("cy", 50).attr("r", 40),
+		showLabel &&
+			element("text")
+				.attr("x", 10)
+				.attr("y", 55)
+				.text("Hello, ")
+				.child(element("tspan").attr("font-weight", "bold").text("SVG"))
+				.text("!"),
+	);
+
+const html = renderToString(svg, { declaration: false, indent: 2 });
+```
+
+console output:
+
+```xml
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <circle cx="50" cy="50" r="40"/>
+  <text x="10" y="55">Hello, <tspan font-weight="bold">SVG</tspan>!</text>
+</svg>
+```
+
+When indentation is enabled, the content of an element that contains text
+(including CDATA) is rendered as is without indentation, because added
+whitespace would change the text.
+
+### Streaming response on Cloudflare Workers
+
+`renderToByteStream()` returns a `ReadableStream<Uint8Array>` encoded in UTF-8,
+which can be passed to `Response` directly.
+
+```typescript
+import { element, renderToByteStream } from "@shun-shobon/littlexml";
+
+export default {
+	fetch() {
+		const root = element("urlset").attr("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+
+		return new Response(renderToByteStream(root), {
+			headers: { "Content-Type": "application/xml; charset=utf-8" },
+		});
+	},
+};
 ```
