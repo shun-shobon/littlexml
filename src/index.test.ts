@@ -8,9 +8,7 @@ describe("renderToString", () => {
 
 		const actual = renderToString(root);
 
-		expect(actual).toBe(
-			`<?xml version="1.0" encoding="UTF-8"?><root>Hello World!</root>`,
-		);
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root>Hello World!</root>`);
 	});
 
 	test("attributes", () => {
@@ -40,9 +38,7 @@ describe("renderToString", () => {
 
 		const actual = renderToString(root);
 
-		expect(actual).toBe(
-			`<?xml version="1.0" encoding="UTF-8"?><root><child/></root>`,
-		);
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root><child/></root>`);
 	});
 
 	test("indent", () => {
@@ -69,9 +65,7 @@ describe("renderToStream", () => {
 
 		const actual = await streamToString(stream);
 
-		expect(actual).toBe(
-			`<?xml version="1.0" encoding="UTF-8"?><root>Hello World!</root>`,
-		);
+		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root>Hello World!</root>`);
 	});
 
 	test("indent", async () => {
