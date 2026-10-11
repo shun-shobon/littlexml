@@ -21,6 +21,16 @@ describe("renderToString", () => {
 		);
 	});
 
+	test("non-string attributes", () => {
+		const root = element("svg").attr("width", 100).attr("height", 0.5).attr("hidden", false);
+
+		const actual = renderToString(root);
+
+		expect(actual).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?><svg width="100" height="0.5" hidden="false"/>`,
+		);
+	});
+
 	test("children", () => {
 		const root = element("root")
 			.child(element("child").text("Hello World!"))

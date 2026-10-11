@@ -17,8 +17,8 @@ export class Element {
 		this.#name = name;
 	}
 
-	attr(name: string, value: string): this {
-		this.#attributes.set(name, value);
+	attr(name: string, value: string | number | boolean): this {
+		this.#attributes.set(name, String(value));
 		return this;
 	}
 
