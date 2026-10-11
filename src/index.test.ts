@@ -51,6 +51,28 @@ describe("renderToString", () => {
 		expect(actual).toBe(`<?xml version="1.0" encoding="UTF-8"?><root><child/></root>`);
 	});
 
+	test("conditional and nested children", () => {
+		const items = ["a", "b"];
+		const root = element("root").child(
+			false,
+			null,
+			undefined,
+			items.map((item) => element("item").text(item)),
+			[[element("deep")], [false]],
+		);
+
+		const actual = renderToString(root, { indent: 2 });
+
+		expect(actual).toBe(
+			`<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <item>a</item>
+  <item>b</item>
+  <deep/>
+</root>`,
+		);
+	});
+
 	test("indent", () => {
 		const root = element("root")
 			.child(element("child").text("Hello World!"))

@@ -8,6 +8,12 @@ export function element(name: string): Element {
 
 export type Content = string | Element[];
 
+/**
+ * Value accepted by `child()`. `null`, `undefined` and `false` are ignored,
+ * and arrays are flattened.
+ */
+export type Child = Element | null | undefined | false | readonly Child[];
+
 export class Element {
 	readonly #name: string;
 	readonly #attributes = new Map<string, string>();
@@ -22,12 +28,18 @@ export class Element {
 		return this;
 	}
 
-	child(...children: Element[]): this {
+	child(...children: Child[]): this {
 		if (typeof this.#children === "string") {
 			throw new TypeError("Cannot add child to element with text content");
 		}
 		this.#children ??= [];
-		this.#children.push(...children);
+		for (const child of children) {
+			if (child instanceof Element) {
+				this.#children.push(child);
+			} else if (child != null && child !== false) {
+				this.child(...child);
+			}
+		}
 
 		return this;
 	}
