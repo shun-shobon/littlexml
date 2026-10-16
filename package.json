@@ -75,7 +75,7 @@
 		"@shun-shobon/oxlint-config": "7.1.0",
 		"@vitest/coverage-v8": "5.0.4",
 		"oxfmt": "0.73.0",
-		"oxlint": "1.87.0",
+		"oxlint": "1.88.0",
 		"oxlint-tsgolint": "7.0.2004",
 		"tsdown": "0.23.1",
 		"typescript": "7.0.2",
