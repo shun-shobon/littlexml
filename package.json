@@ -74,7 +74,7 @@
 		"@shun-shobon/oxfmt-config": "7.1.0",
 		"@shun-shobon/oxlint-config": "7.1.0",
 		"@vitest/coverage-v8": "5.0.4",
-		"oxfmt": "0.72.0",
+		"oxfmt": "0.73.0",
 		"oxlint": "1.87.0",
 		"oxlint-tsgolint": "7.0.2004",
 		"tsdown": "0.23.1",
