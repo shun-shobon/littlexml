@@ -176,8 +176,8 @@ importers:
   .:
     devDependencies:
       '@shun-shobon/oxfmt-config':
-        specifier: 7.1.0
-        version: 7.1.0(oxfmt@0.78.0)
+        specifier: 7.1.1
+        version: 7.1.1(oxfmt@0.78.0)
       '@shun-shobon/oxlint-config':
         specifier: 7.1.0
         version: 7.1.0(oxlint-tsgolint@7.0.2006)(oxlint@1.93.0(oxlint-tsgolint@7.0.2006))
@@ -1003,10 +1003,10 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
-  '@shun-shobon/oxfmt-config@7.1.0':
-    resolution: {integrity: sha512-er7Is2EzERWW7PwQE4RC4OE5+2IHFfOpiSt+2iHEG4VEBvRLm0acxGJAHBV0Wx06BQ6t+eHaV2L++tGbqFq/nw==}
+  '@shun-shobon/oxfmt-config@7.1.1':
+    resolution: {integrity: sha512-oUpvVceWYioJoJNaMoKFy54rypqL4qMqeIGtBBIXERWykVDyW7vNqSWgEZSOE0MtN/y1VIOBwWCjGqnCRKpwlA==}
     peerDependencies:
-      oxfmt: ^0.72.0
+      oxfmt: ^0.72.0 || ^0.73.0 || ^0.74.0 || ^0.75.0 || ^0.76.0 || ^0.77.0 || ^0.78.0
 
   '@shun-shobon/oxlint-config@7.1.0':
     resolution: {integrity: sha512-qTF1fswJykBOt9wLQDFLPc92yjU/mH0PIkBrFNJ2JYhvi7wROgwNnkoEhaSQFNucQUW44Ml2qjDj4JR6oPCJNw==}
@@ -1379,6 +1379,10 @@ packages:
   local-pkg@1.2.1:
     resolution: {integrity: sha512-++gUqRDEvcnN6Zhqrr+y/CkVEHhlrR96vZn3nZZPYzMcBUyBtTKzB9NadClFIsIVSsu+3i9tfk/erqy9kAmt7Q==}
     engines: {node: '>=14'}
+
+  local-pkg@2.0.0:
+    resolution: {integrity: sha512-xvTNwM27EpU+fkLSpo33Pq/nm8m5zNf0aU/hF4W4ZM9RHQjVZa5KTmmXIzEzVsdI09NOUqj0djHhTv96sUowSQ==}
+    engines: {node: '>=20.19.0'}
 
   magic-string@1.4.3:
     resolution: {integrity: sha512-z12OxmaPGE0F4xlpGdjuAUckipLpQlTAuAmyGhNoD7ODpYUzvDfvtxUbjM/jwznyP178oju/KDdyi220wNJ0RQ==}
@@ -2130,9 +2134,9 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@shun-shobon/oxfmt-config@7.1.0(oxfmt@0.78.0)':
+  '@shun-shobon/oxfmt-config@7.1.1(oxfmt@0.78.0)':
     dependencies:
-      local-pkg: 1.2.1
+      local-pkg: 2.0.0
       oxfmt: 0.78.0
 
   '@shun-shobon/oxlint-config@7.1.0(oxlint-tsgolint@7.0.2006)(oxlint@1.93.0(oxlint-tsgolint@7.0.2006))':
@@ -2402,6 +2406,12 @@ snapshots:
       mlly: 1.8.2
       pkg-types: 2.3.3
       quansync: 0.2.11
+
+  local-pkg@2.0.0:
+    dependencies:
+      mlly: 1.8.2
+      pkg-types: 2.3.3
+      quansync: 1.0.0
 
   magic-string@1.4.3:
     dependencies:
