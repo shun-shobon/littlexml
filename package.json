@@ -72,7 +72,7 @@
 	},
 	"devDependencies": {
 		"@shun-shobon/oxfmt-config": "7.1.1",
-		"@shun-shobon/oxlint-config": "7.1.0",
+		"@shun-shobon/oxlint-config": "7.1.1",
 		"@vitest/coverage-v8": "5.1.0",
 		"oxfmt": "0.78.0",
 		"oxlint": "1.93.0",
